@@ -1,12 +1,11 @@
 import reqCreateDesire from "../actions"
 import {reqCreateUser} from "../actions"
-const { React, useState, useEffect } = require("react");
-const { FormItem, Input, Button, File, Banner, ContentCard} = require("@vkontakte/vkui");
-const {Icon24Document} = require("@vkontakte/icons")
+const { React, useState } = require("react");
+const { FormItem, Input, Button} = require("@vkontakte/vkui");
 
 
 function Test (){
-    const [id, setId] = useState([]);
+    // const [id, setId] = useState([]);
     const [vk_id, setVk_id] = useState("0");
     const [name, setName] = useState("Влад");
     const [firstname, setFirstname] = useState("Молотков");
@@ -15,10 +14,8 @@ function Test (){
 
 
     const createUser = () => {
-        let res = [32,8];
         let result = reqCreateUser(vk_id, name, firstname);
         console.log(result);
-        console.log("ID:", id);
     };
 
     // const createDesire = () => {
