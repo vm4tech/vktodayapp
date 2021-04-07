@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import ReactDOM from 'react-dom';
 import {  View, Panel, PanelHeader,  Group,
   Root,                 
@@ -9,15 +9,34 @@ import {  View, Panel, PanelHeader,  Group,
   CellButton,
   // PanelHeaderButton,  
 } from '@vkontakte/vkui';
+import bridge from '@vkontakte/vk-bridge';
 import '@vkontakte/vkui/dist/vkui.css';
 import MainBlock from './components/MainBlock'
 import NearBlock from './components/NearBlock'
 import DesirePanel from './components/DesirePanel'
 import Test from './components/Test'
+
+
+
 function App () {
   const [mainPanel, setMainPanel] = useState("panel1")
   const [activeView] = useState("main")
-  
+
+  useEffect(() => {
+		bridge.subscribe(({ detail: { type, data }}) => {
+			if (type === 'VKWebAppUpdateConfig') {
+				const schemeAttribute = document.createAttribute('scheme');
+				schemeAttribute.value = data.scheme ? data.scheme : 'client_light';
+				document.body.attributes.setNamedItem(schemeAttribute);
+			}
+		});
+		async function fetchData() {
+			const user = await bridge.send('VKWebAppGetUserInfo');
+			console.log(user)
+		}
+		fetchData();
+	}, []);
+
   return (
     <Root activeView={activeView}>
         <View id="main" activePanel={mainPanel}>

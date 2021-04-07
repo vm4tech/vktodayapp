@@ -1,6 +1,7 @@
 // TODO: Решить что делать с разграничением сервисов на 1 домене
 // TODO: Сверстать нормальную начальную страницу для каждого пользователя
 // TODO: Попробовать заполнять желания и вытягивать их
+//  КАЖДЫЙ РАЗ ОТПРАВЛЯТЬ СТРОЧКУ С ДАННЫМИ?!?!?
 export function reqCreateUser(vk_id, name, firstname) {
     const body = {vk_id, name, firstname}
         return fetch("http://localhost:5000/createuser", {
