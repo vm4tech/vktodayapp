@@ -50,7 +50,7 @@ function App () {
     console.log("access:" , access)
     if (access) 
         setPopout(null)
-	}, []);
+	}, [access]);
 
   return (
     <Root activeView={activeView}>
