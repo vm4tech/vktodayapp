@@ -37,19 +37,18 @@ function App () {
 			}
 		});
 		async function fetchData() {
-      // const response = await reqCheckParams(window.location.search.slice(1));
       await reqCheckParams(window.location.search.slice(1))
-      .then(e => {setAccess(e); console.log("setAccess:", access)})
+      .then(e => {console.log("setAccess:", e)})
       .catch(e => console.log("Ошибка: ", e));
       
-			const user = await bridge.send('VKWebAppGetUserInfo');
-			console.log(user.city + "RESPONSE")
+			await bridge.send('VKWebAppGetUserInfo')
+      .then(data => {
+        console.log("id", data)
+      });
 		}
-   // Fix: Починить баг с async 
+   // Fix: Починить баг с async ss
 		fetchData();
     console.log("access:" , access)
-    if (access) 
-        setPopout(null)
 	}, [access]);
 
   
