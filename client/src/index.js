@@ -8,7 +8,7 @@ bridge.send('VKWebAppInit',{})
   bridge.subscribe((e) => {
   console.log('bridge event', e);
 });
-console.log(window.location.search.slice(1))
+
 
 ReactDOM.render(
   <React.StrictMode>

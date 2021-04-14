@@ -7,7 +7,7 @@ import {  View, Panel, PanelHeader,  Group,
   // Counter,
   Avatar,
   CellButton,
-  // PanelHeaderButton,  
+  ScreenSpinner
 } from '@vkontakte/vkui';
 import bridge from '@vkontakte/vk-bridge';
 import '@vkontakte/vkui/dist/vkui.css';
@@ -15,14 +15,20 @@ import MainBlock from './components/MainBlock'
 import NearBlock from './components/NearBlock'
 import DesirePanel from './components/DesirePanel'
 import Test from './components/Test'
+import {reqCheckParams} from './actions'
 
 
 
 function App () {
   const [mainPanel, setMainPanel] = useState("panel1")
   const [activeView] = useState("main")
+  const [access, setAccess] = useState("")
+  const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+
 
   useEffect(() => {
+    
+    
 		bridge.subscribe(({ detail: { type, data }}) => {
 			if (type === 'VKWebAppUpdateConfig') {
 				const schemeAttribute = document.createAttribute('scheme');
@@ -31,15 +37,24 @@ function App () {
 			}
 		});
 		async function fetchData() {
+      // const response = await reqCheckParams(window.location.search.slice(1));
+      await reqCheckParams(window.location.search.slice(1))
+      .then(e => {setAccess(e); console.log("setAccess:", access)})
+      .catch(e => console.log("Ошибка: ", e));
+      
 			const user = await bridge.send('VKWebAppGetUserInfo');
-			console.log(user)
+			console.log(user.city + "RESPONSE")
 		}
+   // Fix: Починить баг с async 
 		fetchData();
+    console.log("access:" , access)
+    if (access) 
+        setPopout(null)
 	}, []);
 
   return (
     <Root activeView={activeView}>
-        <View id="main" activePanel={mainPanel}>
+        <View id="main" activePanel={mainPanel} popout={popout}>
           <Panel id="panel1">
             <PanelHeader
               left={<PanelHeaderClose />}
