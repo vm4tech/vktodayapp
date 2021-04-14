@@ -52,6 +52,7 @@ function App () {
         setPopout(null)
 	}, [access]);
 
+  
   return (
     <Root activeView={activeView}>
         <View id="main" activePanel={mainPanel} popout={popout}>
