@@ -24,13 +24,28 @@ export default function DesirePanel (props) {
         // <Group >
             <Gallery
             slideWidth="100%"
-            style={{ height: 350 }}
+            style={{ height: 350, borderRadius:'10px' }}
             >
-            <div style={{ backgroundColor: 'var(--destructive)' }} />
+            <div style={{backgroundColor: 'var(--destructive)' }} />
             <div 
                 style={{
-                    
                     backgroundImage: `url(${urls[1]})`,
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat'
+                }}
+            />
+            <div 
+                style={{
+                    backgroundImage: `url(${urls[2]})`,
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat'
+                }}
+            />
+            <div 
+                style={{
+                    backgroundImage: `url(${urls[3]})`,
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat'

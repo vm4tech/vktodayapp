@@ -27,6 +27,8 @@ import {
     Icon56NewsfeedOutline
 } from "@vkontakte/icons"
 import NearBlock from "./NearBlock"
+import Test from './Test';
+import DesirePanel from './DesirePanel';
 
 
 const CustomEpic = withAdaptivity((props) => {
@@ -34,15 +36,16 @@ const CustomEpic = withAdaptivity((props) => {
     const onStoryChange = (e) => setActiveStory(e.currentTarget.dataset.story);
     const isDesktop = props.viewWidth >= ViewWidth.SMALL_TABLET;
     const hasHeader = false;
+    console.log(props)
     console.log("isDeskotop ", isDesktop)
     console.log("hasHeader ", hasHeader) 
     return (
       <SplitLayout
-        header={hasHeader && <PanelHeader separator={false} />}
+        header={hasHeader && <PanelHeader  transparent={true} separator={false} />}
         style={{ justifyContent: "center" }}
       >
         {isDesktop && (
-          <SplitCol fixed width="280px" maxWidth="280px">
+          <SplitCol spaced={true} fixed width="250px" maxWidth="280px">
             <Panel>
               {hasHeader && <PanelHeader  />} 
               <Group>
@@ -154,16 +157,16 @@ const CustomEpic = withAdaptivity((props) => {
           }>
             <View id="feed" activePanel="feed">
               <Panel id="feed">
-                <PanelHeader  separator ={false} left={<PanelHeaderBack />}>Новости</PanelHeader>
                 <NearBlock></NearBlock>
               </Panel>
             </View>
             <View id="services" activePanel="services">
               <Panel id="services">
-                <PanelHeader left={<PanelHeaderBack />}>Сервисы</PanelHeader>
-                <Group style={{ height: '1000px' }}>
-                  <Placeholder icon={<Icon28ServicesOutline width={56} height={56} />}>
-                  </Placeholder>
+                <PanelHeader  borderRadius="10px" left={<PanelHeaderBack />}>Сервисы</PanelHeader>
+                
+                <DesirePanel />
+                <Group  style={{ height: '1000px' }}>
+                  <Test></Test>
                 </Group>
               </Panel>
             </View>
@@ -180,14 +183,14 @@ const CustomEpic = withAdaptivity((props) => {
               <Panel id="clips">
                 <PanelHeader left={<PanelHeaderBack />}>Клипы</PanelHeader>
                 <Group style={{ height: '1000px' }}>
-                  <Placeholder icon={<Icon28ClipOutline width={56} height={56} />}>
+                  <Placeholder  icon={<Icon28ClipOutline width={56} height={56} />}>
                   </Placeholder>
                 </Group>
               </Panel>
             </View>
             <View id="profile" activePanel="profile">
               <Panel id="profile">
-                <PanelHeader separator ={false} left={<PanelHeaderBack />}>Профиль</PanelHeader>
+                <PanelHeader shadow={true} left={<PanelHeaderBack />}>Профиль</PanelHeader>
                 <Group style={{ height: '1000px' }}>
                   <Placeholder icon={<Icon28UserCircleOutline width={56} height={56} />}>
                   </Placeholder>

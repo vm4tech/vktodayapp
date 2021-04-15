@@ -32,14 +32,7 @@ function App () {
   const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
   useEffect(() => {
- 
-		bridge.subscribe(({ detail: { type, data }}) => {
-			if (type === 'VKWebAppUpdateConfig') {
-				const schemeAttribute = document.createAttribute('scheme');
-				schemeAttribute.value = data.scheme ? data.scheme : 'client_light';
-				document.body.attributes.setNamedItem(schemeAttribute);
-			}
-		});
+
 		async function fetchData() {
       await reqCheckParams(window.location.search.slice(1))
       .then(e => {console.log("setAccess:", e)})
@@ -48,7 +41,9 @@ function App () {
 			await bridge.send('VKWebAppGetUserInfo')
       .then(data => setUser(data));
       await bridge.send('VKWebAppGetClientVersion')
-      .then(data => setPlatform(data.platform))
+      .then(data => {
+        console.log("ПЛАТФОРМА",data.platform)
+        setPlatform(data.platform)})
 		}
 		fetchData();
     setPopout(null);
@@ -59,6 +54,7 @@ function App () {
     <ConfigProvider>
       <AdaptivityProvider>
         <AppRoot>    
+          
           {/* <CustomEpic platform={platform} user={user}> */}
           <CustomEpic platform={platform} user={user}>
             {/* <Root activeView={activeView}>
