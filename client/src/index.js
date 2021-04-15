@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import bridge from '@vkontakte/vk-bridge';
+import {usePlatform} from "@vkontakte/vkui"
 
 bridge.send('VKWebAppInit',{})
   bridge.subscribe((e) => {

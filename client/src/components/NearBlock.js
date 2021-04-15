@@ -20,7 +20,8 @@ import { Banner,
 */
 
 export default function NearBlock (props) {
-    
+    // const user = props.user;
+    // console.log(user.id);
     // const [description, setDescription] = useState("");
     // const [mainPanel, setMainPanel] = useState("")
     const help = (message) => {
@@ -31,7 +32,7 @@ export default function NearBlock (props) {
     
     return(
         <Group
-            header={<Header>Ближайшие</Header>}
+            header={<Header>TEsting</Header>}
         >   <div
                  onClick = {() => help("panel2")}
                 >

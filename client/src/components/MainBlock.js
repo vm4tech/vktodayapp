@@ -11,7 +11,7 @@ import {
     "https://sun9-58.userapi.com/impg/KDNminqkporztz7QwMImW7aMacrXS-Y8J9gqhA/CNOnZT6QBX8.jpg?size=1060x1600&quality=96&sign=d0baeb298530eb3dd7064462e07bdf18&type=album",
   ];
 
-export default function MainBlock () {
+export default function MainBlock (props) {
     
     // const [description, setDescription] = useState("lalala");
 
