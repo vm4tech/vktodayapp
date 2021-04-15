@@ -55,7 +55,6 @@ function App () {
     console.log("access:" , access);
 	}, []);
 
-  
   return (
     <ConfigProvider>
       <AdaptivityProvider>
