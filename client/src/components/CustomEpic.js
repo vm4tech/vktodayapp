@@ -29,25 +29,24 @@ import {
 import NearBlock from "./NearBlock"
 import Test from './Test';
 import DesirePanel from './DesirePanel';
+import MainBlock from './MainBlock';
 
 
 const CustomEpic = withAdaptivity((props) => {
     const [activeStory, setActiveStory] = useState('profile');
     const onStoryChange = (e) => setActiveStory(e.currentTarget.dataset.story);
     const isDesktop = props.viewWidth >= ViewWidth.SMALL_TABLET;
-    const hasHeader = false;
+    const hasHeader = props.platform == 'web';
     console.log(props)
     console.log("isDeskotop ", isDesktop)
     console.log("hasHeader ", hasHeader) 
     return (
       <SplitLayout
-        header={hasHeader && <PanelHeader  transparent={true} separator={false} />}
         style={{ justifyContent: "center" }}
       >
         {isDesktop && (
           <SplitCol spaced={true} fixed width="250px" maxWidth="280px">
             <Panel>
-              {hasHeader && <PanelHeader  />} 
               <Group>
                 <Cell
                   disabled={activeStory === 'feed'}
@@ -59,7 +58,7 @@ const CustomEpic = withAdaptivity((props) => {
                   onClick={onStoryChange}
                   before={<Icon28NewsfeedOutline />}
                 >
-                  feed
+                  Главная
                 </Cell>
                 <Cell
                   disabled={activeStory === 'services'}
@@ -107,7 +106,7 @@ const CustomEpic = withAdaptivity((props) => {
                   onClick={onStoryChange}
                   before={<Icon28UserCircleOutline />}
                 >
-                  profile
+                  Профиль
                 </Cell>
               </Group>
             </Panel>
@@ -157,12 +156,13 @@ const CustomEpic = withAdaptivity((props) => {
           }>
             <View id="feed" activePanel="feed">
               <Panel id="feed">
+                <MainBlock></MainBlock>
                 <NearBlock></NearBlock>
               </Panel>
             </View>
             <View id="services" activePanel="services">
               <Panel id="services">
-                <PanelHeader  borderRadius="10px" left={<PanelHeaderBack />}>Сервисы</PanelHeader>
+                {hasHeader && <PanelHeader visor={false} transparent={true} left={<PanelHeaderBack style={{color:"var(--background_content)"}} />}/>}
                 
                 <DesirePanel />
                 <Group  style={{ height: '1000px' }}>

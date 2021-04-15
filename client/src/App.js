@@ -53,7 +53,7 @@ function App () {
   return (
     <ConfigProvider>
       <AdaptivityProvider>
-        <AppRoot>    
+        <AppRoot style={{overflow:"hidden", maxWidth:"100%", minWidth:"100%"}}>    
           
           {/* <CustomEpic platform={platform} user={user}> */}
           <CustomEpic platform={platform} user={user}>

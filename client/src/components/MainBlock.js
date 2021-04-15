@@ -17,6 +17,8 @@ export default function MainBlock (props) {
 
     return(
         // <div>
+        // TODO: Сделать обрезание текста, чтобы не выходило за границы, иначе режется верстка у ContentCard (проверить можно вставив много букв в caption)
+        // TODO: Понять, почему не работает вне vk скрол с shift и скрол до конца. 
              <Group header={<Header>Главные</Header>}> 
               <CardScroll size="m">
                 <ContentCard
@@ -27,6 +29,7 @@ export default function MainBlock (props) {
                   caption="Photo by Pasha Usenko"
                   maxHeight={150}
                   // onClick={}
+                  mode="tint"
                 />
                 <ContentCard
                  image={urls[1]}
@@ -34,13 +37,16 @@ export default function MainBlock (props) {
                   header="Закончить учебу"
                   // text=""
                   caption="Выполнено 3 из 4"
+                  mode="tint"
                   maxHeight={150}
                 />
                 <ContentCard
+                
                   image="https://images.unsplash.com/photo-1603988492906-4fb0fb251cf8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80"
                   subtitle="Горы"
                   header="Какой-то текст"
                   caption="Хочу в горы"
+                  mode="tint"
                   maxHeight={150}
                 />
                {/* <ContentCard 

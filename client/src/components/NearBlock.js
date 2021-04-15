@@ -82,7 +82,7 @@ export default function NearBlock (props) {
                          <Progress 
                         value={50}
                         style={{
-                            height:"5%",                            
+                            height:"5%",
                             }} />
                     </div>
                 }
@@ -109,7 +109,7 @@ export default function NearBlock (props) {
                          <Progress 
                         value={0}
                         style={{
-                            height:"5%",                            
+                            height:"5%"
                             }} />
                     </div>
                 }
