@@ -60,6 +60,7 @@ function App () {
     <ConfigProvider>
       <AdaptivityProvider>
         <AppRoot>    
+          {/* <CustomEpic platform={platform} user={user}> */}
           <CustomEpic platform={platform} user={user}>
             {/* <Root activeView={activeView}>
               <View id="main" activePanel={mainPanel} popout={popout}>

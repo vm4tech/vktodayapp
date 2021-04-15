@@ -29,12 +29,10 @@ import {
 import NearBlock from "./NearBlock"
 
 
-const CustomEpic = withAdaptivity(({ viewWidth }) => {
-    const platform = usePlatform();
-  console.log("Платформа", platform)
+const CustomEpic = withAdaptivity((props) => {
     const [activeStory, setActiveStory] = useState('profile');
     const onStoryChange = (e) => setActiveStory(e.currentTarget.dataset.story);
-    const isDesktop = viewWidth >= ViewWidth.SMALL_TABLET;
+    const isDesktop = props.viewWidth >= ViewWidth.SMALL_TABLET;
     const hasHeader = false;
     console.log("isDeskotop ", isDesktop)
     console.log("hasHeader ", hasHeader) 
@@ -156,7 +154,7 @@ const CustomEpic = withAdaptivity(({ viewWidth }) => {
           }>
             <View id="feed" activePanel="feed">
               <Panel id="feed">
-                <PanelHeader visor={false}  separator ={false} left={<PanelHeaderBack />}>Новости</PanelHeader>
+                <PanelHeader  separator ={false} left={<PanelHeaderBack />}>Новости</PanelHeader>
                 <NearBlock></NearBlock>
               </Panel>
             </View>
@@ -189,7 +187,7 @@ const CustomEpic = withAdaptivity(({ viewWidth }) => {
             </View>
             <View id="profile" activePanel="profile">
               <Panel id="profile">
-                <PanelHeader visor={false} separator ={false} left={<PanelHeaderBack />}>Профиль</PanelHeader>
+                <PanelHeader separator ={false} left={<PanelHeaderBack />}>Профиль</PanelHeader>
                 <Group style={{ height: '1000px' }}>
                   <Placeholder icon={<Icon28UserCircleOutline width={56} height={56} />}>
                   </Placeholder>
