@@ -16,7 +16,10 @@ import {
   View,
   ViewWidth,
   VKCOM,
-  withAdaptivity
+  withAdaptivity,
+  Button,
+  CellButton,
+  Avatar
   } from '@vkontakte/vkui';
 import {
     Icon28NewsfeedOutline,
@@ -24,17 +27,20 @@ import {
     Icon28UserCircleOutline,
     Icon28ClipOutline,
     Icon28MessageOutline,
-    Icon56NewsfeedOutline
+    Icon56NewsfeedOutline,
+    Icon24Add
 } from "@vkontakte/icons"
 import NearBlock from "./NearBlock"
 import Test from './Test';
 import DesirePanel from './DesirePanel';
 import MainBlock from './MainBlock';
+import CreateDesire from './CreateDesire';
 
 
 const CustomEpic = withAdaptivity((props) => {
-    const [activeStory, setActiveStory] = useState('profile');
-    const onStoryChange = (e) => setActiveStory(e.currentTarget.dataset.story);
+    const [activeStory, setActiveStory] = useState('services');
+    const onStoryChange = (e) => {setActiveStory(e.currentTarget.dataset.story);setActivePanel(e.currentTarget.dataset.story)};
+    const [activePanel, setActivePanel] = useState("services");
     const isDesktop = props.viewWidth >= ViewWidth.SMALL_TABLET;
     const hasHeader = props.platform == 'web';
     console.log(props)
@@ -49,12 +55,12 @@ const CustomEpic = withAdaptivity((props) => {
             <Panel>
               <Group>
                 <Cell
-                  disabled={activeStory === 'feed'}
-                  style={activeStory === 'feed' ? {
+                  disabled={activeStory === 'main'}
+                  style={activeStory === 'main' ? {
                     backgroundColor: "var(--button_secondary_background)",
                     borderRadius: 8
                   } : {}}
-                  data-story="feed"
+                  data-story="main"
                   onClick={onStoryChange}
                   before={<Icon28NewsfeedOutline />}
                 >
@@ -70,7 +76,7 @@ const CustomEpic = withAdaptivity((props) => {
                   onClick={onStoryChange}
                   before={<Icon28ServicesOutline />}
                 >
-                  services
+                  Все
                 </Cell>
                 <Cell
                   disabled={activeStory === 'messages'}
@@ -119,19 +125,20 @@ const CustomEpic = withAdaptivity((props) => {
           width={isDesktop ? '560px' : '100%'}
           maxWidth={isDesktop ? '560px' : '100%'}
         >
-          <Epic activeStory={activeStory} tabbar={!isDesktop &&
+          <Epic activeStory={activeStory} 
+          tabbar={!isDesktop &&
             <Tabbar>
               <TabbarItem
                 onClick={onStoryChange}
-                selected={activeStory === 'feed'}
-                data-story="feed"
-                text="Новости"
+                selected={activeStory === 'main'}
+                data-story="main"
+                text="Главная"
               ><Icon28NewsfeedOutline /></TabbarItem>
               <TabbarItem
                 onClick={onStoryChange}
                 selected={activeStory === 'services'}
                 data-story="services"
-                text="Сервисы"
+                text="Все"
               ><Icon28ServicesOutline/></TabbarItem>
               <TabbarItem
                 onClick={onStoryChange}
@@ -154,23 +161,30 @@ const CustomEpic = withAdaptivity((props) => {
               ><Icon28UserCircleOutline /></TabbarItem>
             </Tabbar>
           }>
-            <View id="feed" activePanel="feed">
-              <Panel id="feed">
+            <View id="main" activePanel={activePanel}>
+              <Panel id="main">
                 <MainBlock></MainBlock>
                 <NearBlock></NearBlock>
               </Panel>
             </View>
-            <View id="services" activePanel="services">
+            <View id="services" activePanel={activePanel}>
               <Panel id="services">
-                {hasHeader && <PanelHeader visor={false} transparent={true} left={<PanelHeaderBack style={{color:"var(--background_content)"}} />}/>}
-                
-                <DesirePanel />
-                <Group  style={{ height: '1000px' }}>
-                  <Test></Test>
+                {/* <PanelHeader visor={false} transparent={true} left={<PanelHeaderBack style={{color:"var(--background_content)"}} />}> Все желания</PanelHeader> */}
+                <PanelHeader left={<PanelHeaderBack  />}> Все желания</PanelHeader>
+                <Group style={{ height: '1000px' }}>
+                  <Placeholder header="Кажется, у вас пусто в штанах!" icon={<Icon28MessageOutline width={56} height={56} />}/>
+                  <CellButton onClick={() => setActivePanel("create_desire")} centered before={<Avatar shadow={false} size={40} ><Icon24Add /></Avatar>}>Добавить желание</CellButton>
+                </Group>
+              </Panel>
+              <Panel id="create_desire">
+                {/* <PanelHeader visor={false} transparent={true} left={<PanelHeaderBack style={{color:"var(--background_content)"}} />}> Все желания</PanelHeader> */}
+                <PanelHeader left={<PanelHeaderBack  />}> Создание желания</PanelHeader>
+                <Group>
+                  <CreateDesire user={props.user}></CreateDesire>
                 </Group>
               </Panel>
             </View>
-            <View id="messages" activePanel="messages">
+            <View id="messages" activePanel={activePanel}>
               <Panel id="messages">
                 <PanelHeader left={<PanelHeaderBack />}>Сообщения</PanelHeader>
                 <Group style={{ height: '1000px' }}>
@@ -179,7 +193,7 @@ const CustomEpic = withAdaptivity((props) => {
                 </Group>
               </Panel>
             </View>
-            <View id="clips" activePanel="clips">
+            <View id="clips" activePanel={activePanel}>
               <Panel id="clips">
                 <PanelHeader left={<PanelHeaderBack />}>Клипы</PanelHeader>
                 <Group style={{ height: '1000px' }}>
@@ -188,7 +202,7 @@ const CustomEpic = withAdaptivity((props) => {
                 </Group>
               </Panel>
             </View>
-            <View id="profile" activePanel="profile">
+            <View id="profile" activePanel={activePanel}>
               <Panel id="profile">
                 <PanelHeader shadow={true} left={<PanelHeaderBack />}>Профиль</PanelHeader>
                 <Group style={{ height: '1000px' }}>

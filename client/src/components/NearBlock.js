@@ -32,12 +32,12 @@ export default function NearBlock (props) {
     
     return(
         <Group
-            header={<Header>TEsting</Header>}
+            header={<Header>Ближайшие</Header>}
         >   <div
                  onClick = {() => help("panel2")}
                 >
                 <Banner
-                    mode="image"
+                    mode="tint"
                     header="Купить машину"
                     size="s"
                     asideMode="expand"
@@ -45,7 +45,7 @@ export default function NearBlock (props) {
                     background={
                         <div
                         style={{
-                            backgroundImage: `url(${urls[0]})`,
+                            // backgroundImage: `url(${urls[0]})`,
                             backgroundPosition: 'center',
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',

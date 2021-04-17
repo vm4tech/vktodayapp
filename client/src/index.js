@@ -7,7 +7,6 @@ import {usePlatform} from "@vkontakte/vkui"
 
 bridge.send('VKWebAppInit',{})
   bridge.subscribe((e) => {
-  console.log('bridge event', e);
 });
 
 
