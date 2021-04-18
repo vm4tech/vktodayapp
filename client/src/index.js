@@ -6,7 +6,9 @@ import bridge from '@vkontakte/vk-bridge';
 
 
 // Init VK  Mini App
-bridge.send("VKWebAppInit");
+let response = null;
+bridge.send("VKWebAppInit").then(data => response = data);
+console.log("VKWebAppInit",response);
 
 ReactDOM.render(
   <React.StrictMode>

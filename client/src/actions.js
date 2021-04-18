@@ -2,7 +2,8 @@
 // TODO: Сверстать нормальную начальную страницу для каждого пользователя
 // TODO: Попробовать заполнять желания и вытягивать их
 //  КАЖДЫЙ РАЗ ОТПРАВЛЯТЬ СТРОЧКУ С ДАННЫМИ SIGN B И.т.п???!?!?
-const url = "http://localhost:5000"
+// const url = "http://localhost:5000"
+const url = "https://a2116ac3d94e.ngrok.io"
 export function reqCheckParams(params) {
   const body = {params}
       return fetch(url + "/checkparams", {

@@ -25,34 +25,33 @@ import { Icon24Add, Icon28MessageOutline } from '@vkontakte/icons';
 export default function Desires (props) {
     // const user = props.user;
     console.log(urls);
-    const [desires, setDesires] = useState([]);
     // const [description, setDescription] = useState("");
     // const [mainPanel, setMainPanel] = useState("")
-    useEffect(()=>{
-        async function getDesires(){
-            await reqGetDesires(props.user.id)
-            .then(e => {
-                setDesires([...e]);
-                console.log(e)
-            })
-            .catch(e => console.log(e))
-        }
-        getDesires();
-        console.log("desires from req:", desires)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    // useEffect(()=>{
+    //     async function getDesires(){
+    //         await reqGetDesires(props.user.id)
+    //         .then(e => {
+    //             setDesires([...e]);
+    //             console.log(e)
+    //         })
+    //         .catch(e => console.log(e))
+    //     }
+    //     getDesires();
+    //     console.log("desires from req:", desires)
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[])
     
     return(
         
         <Group
-            style={{ height: '1000px' }}
+            // style={{ height: '1000px' }}
             header={<Header>Ближайшие</Header>}
         >   
         <CellButton onClick={() => props.setActivePanel("create_desire")} centered before={<Avatar shadow={false} size={40} ><Icon24Add /></Avatar>}>Добавить желание</CellButton> 
-        {desires.size === 0 ? 
+        {props.desires.size === 0 ? 
             <Placeholder header="Кажется, у вас пусто в штанах!" icon={<Icon28MessageOutline width={56} height={56} />}/>
             :
-              desires.slice(0).reverse().map((desire) => <CustomBanner onSetDesire={props.onSetDesire} setActivePanel={props.setActivePanel} key ={desire.id} desire={desire}></CustomBanner> )
+              props.desires.slice(0).reverse().map((desire) => <CustomBanner onSetDesire={props.onSetDesire} setActivePanel={props.setActivePanel} key ={desire.id} desire={desire}></CustomBanner> )
         }
         </Group>
     )
