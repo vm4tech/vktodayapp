@@ -24,7 +24,6 @@ function App () {
   const hu = useRef(user);
   const access = useRef();
   const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
-
   useEffect(() => {
     bridge.subscribe((e) => {});
 		 async function fetchData() {
@@ -43,10 +42,10 @@ function App () {
               console.log("create user:", data)
             });
       console.log("hu.current", hu.current)
+      setPopout(null);
 		}
 		fetchData();
-    setPopout(null);
-	},[]); 
+  	},[]); 
   return (
     <ConfigProvider>
       <AdaptivityProvider>

@@ -34,29 +34,13 @@ const CustomEpic = withAdaptivity((props) => {
     const [activeStory, setActiveStory] = useState('main');
     const [activePanel, setActivePanel] = useState("main");
     const [desire, setDesire] = useState(null);
-    const [desires, setDesires] = useState([]);
+    const [addDesire, setAddDesire] = useState(null);
+    // const [desires, setDesires] = useState([]);
     const isDesktop = props.viewWidth >= ViewWidth.SMALL_TABLET;
-    // const hasHeader = props.platform === 'web';  
     const onStoryChange = (e) => {setActiveStory(e.currentTarget.dataset.story); setActivePanel(e.currentTarget.dataset.story)}
     const onSetDesire = (desire) => setDesire(desire);
-    useEffect(()=>{
-      async function getDesires(){
-        console.log("ПОЧЕМУ ТАК НАХ",props.user);
-          await reqGetDesires(props.user.id)
-          .then(e => {
-              setDesires([...e]);
-              console.log(e)
-          })
-          .catch(e => console.log(e))
-      }
-      getDesires();
-      console.log("desires from req:", desires)
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
-    // console.log("PROPS:", props)
-    // console.log("user.id", props.user)
-    // console.log("isDeskotop ", isDesktop)
-    // console.log("hasHeader ", hasHeader) 
+    const onAddDesire = (desire) => setAddDesire(desire);
+   
     return (
       <SplitLayout
         style={{ justifyContent: "center" }}
@@ -185,13 +169,13 @@ const CustomEpic = withAdaptivity((props) => {
               <Panel id="services">
                 {/* <PanelHeader visor={false} transparent={true} left={<PanelHeaderBack style={{color:"var(--background_content)"}} />}> Все желания</PanelHeader> */}
                 <PanelHeader left={<PanelHeaderBack  />}> Все желания</PanelHeader>
-                  <Desires desires={desires} onSetDesire={onSetDesire} setActivePanel={setActivePanel} user={props.user}/>
+                  <Desires addDesire={addDesire} onSetDesire={onSetDesire} setActivePanel={setActivePanel} user={props.user}/>
               </Panel>
               <Panel id="create_desire">
                 {/* <PanelHeader visor={false} transparent={true} left={<PanelHeaderBack style={{color:"var(--background_content)"}} />}> Все желания</PanelHeader> */}
                 <PanelHeader left={<PanelHeaderBack onClick={()=> setActivePanel("services")} />}> Создание желания</PanelHeader>
                 <Group>
-                  <CreateDesire  user={props.user}/>
+                  <CreateDesire onAddDesire={onAddDesire} user={props.user} setActivePanel={setActivePanel} />
                 </Group>
               </Panel>
               <Panel id="desire_panel">

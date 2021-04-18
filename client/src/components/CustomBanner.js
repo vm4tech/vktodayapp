@@ -33,7 +33,7 @@ export default function CustomBanner (props) {
                     }}
                 >
                 <Banner
-                    mode="image"
+                    mode="tint"
                     header={props.desire.description}
                     size="m"
                     asideMode="expand"
@@ -41,7 +41,7 @@ export default function CustomBanner (props) {
                     background={
                         <div
                         style={{
-                            backgroundImage: `url(${urls[0]})`,
+                            // backgroundImage: `url(${urls[0]})`,
                             backgroundPosition: 'center',
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',

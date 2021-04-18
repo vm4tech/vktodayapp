@@ -1,4 +1,5 @@
 import reqCreateDesire from "../actions"
+import {addDesire} from './Desires'
 const { React, useState } = require("react");
 const { FormItem, Input, Button, Textarea, Select, CustomSelectOption} = require("@vkontakte/vkui");
 
@@ -21,13 +22,13 @@ export default function CreateDesire (props){
     //     .then(() => setId(response))
     //     .then(() => console.log("И ЭТО...", response));
     //   };
-
+    
     const createDesire = async() => {
         let response;
         console.log("USER:ID ", user.id)
         await reqCreateDesire(user.id, name, description, genre).then(res => {
             response = res;
-            console.log(response)
+            props.onAddDesire(response);
         })
         //  setId([...response]);
          console.log("И ЭТО...", response);
@@ -50,7 +51,9 @@ export default function CreateDesire (props){
                   options={genres.map(genre => ({label: genre, value: genre }) )} 
                 />
         </FormItem>
-            <Button onClick={e  =>  createDesire()} size="l" stretched style={{ marginRight: 8 }}>Создать</Button>
+            <Button onClick={e  =>  {
+                    createDesire();
+                }} size="l" stretched style={{ marginRight: 8 }}>Создать</Button>
         
          {/* {id.map((id) => <p> id from request: {id}</p> )}  */}
         </div>
