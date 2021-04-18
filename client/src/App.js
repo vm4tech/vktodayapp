@@ -1,45 +1,36 @@
 import React, { useState, useEffect } from 'react';
 // import ReactDOM from 'react-dom';
-import {  View, Panel, PanelHeader,  Group,
-  Root,                 
-  PanelHeaderClose     ,
-  PanelHeaderBack,      
-  // Counter,
-  Avatar,
-  CellButton,
+import {  
   ScreenSpinner,
   AppRoot,
-  usePlatform,
   ConfigProvider,
   AdaptivityProvider
 } from '@vkontakte/vkui';
 import bridge from '@vkontakte/vk-bridge';
 import '@vkontakte/vkui/dist/vkui.css';
-import MainBlock from './components/MainBlock';
-import NearBlock from './components/NearBlock';
-import DesirePanel from './components/DesirePanel';
-import Test from './components/Test';
-import {reqCheckParams} from './actions';
+// import {reqCheckParams} from './actions';
 import CustomEpic from './components/CustomEpic';
 
 
 function App () {
-  const [mainPanel, setMainPanel] = useState("panel1");
-  const [activeView] = useState("main");
-  const [access, setAccess] = useState("");
+  // const [access, setAccess] = useState("");
   const [platform, setPlatform] = useState(null);
   const [user, setUser] = useState(null);
   const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
   useEffect(() => {
-
+    bridge.subscribe((e) => {console.log("SUBSCRIBE",e)});
 		async function fetchData() {
-      await reqCheckParams(window.location.search.slice(1))
-      .then(e => {console.log("setAccess:", e)})
-      .catch(e => console.log("Ошибка: ", e));
+      // TODO: Включить, когда можно будет с сервером тестить
+      // await reqCheckParams(window.location.search.slice(1))
+      // .then(e => {console.log("setAccess:", e)})
+      // .catch(e => console.log("Ошибка: ", e));
       
 			await bridge.send('VKWebAppGetUserInfo')
-      .then(data => setUser(data));
+      .then(data => {
+        setUser(data); 
+        // console.log("USER:", user);
+      });
       await bridge.send('VKWebAppGetClientVersion')
       .then(data => {
         console.log("ПЛАТФОРМА",data.platform)
@@ -47,8 +38,8 @@ function App () {
 		}
 		fetchData();
     setPopout(null);
-    console.log("access:" , access);
-	}, []);
+    // console.log("access:" , access);
+	}, []); 
 
   return (
     <ConfigProvider>
@@ -56,7 +47,7 @@ function App () {
         <AppRoot style={{overflow:"hidden", maxWidth:"100%", minWidth:"100%"}}>    
           
           {/* <CustomEpic platform={platform} user={user}> */}
-          <CustomEpic platform={platform} user={user}>
+          <CustomEpic platform={platform} user={user} popout={popout}>
             {/* <Root activeView={activeView}>
               <View id="main" activePanel={mainPanel} popout={popout}>
                 <Panel id="panel1">

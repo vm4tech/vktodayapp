@@ -2,10 +2,10 @@
 // TODO: Сверстать нормальную начальную страницу для каждого пользователя
 // TODO: Попробовать заполнять желания и вытягивать их
 //  КАЖДЫЙ РАЗ ОТПРАВЛЯТЬ СТРОЧКУ С ДАННЫМИ SIGN B И.т.п???!?!?
-
+const url = "http://localhost:5000"
 export function reqCheckParams(params) {
   const body = {params}
-      return fetch("http://localhost:5000/checkparams", {
+      return fetch(url + "/checkparams", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body)
@@ -24,7 +24,7 @@ export function reqCheckParams(params) {
 
 export function reqCreateUser(vk_id, name, firstname) {
     const body = {vk_id, name, firstname}
-        return fetch("http://localhost:5000/createuser", {
+        return fetch(url +"/createuser", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -41,9 +41,29 @@ export function reqCreateUser(vk_id, name, firstname) {
           }
         )
 }
+
 export default function reqCreateDesire(vk_id, name, description, genre) {
   const body = {vk_id, name, description, genre}
-    return fetch("http://localhost:5000/createdesire", {
+    return fetch(url + "/createdesire", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          return result;
+        },
+        (error) => {
+          console.log(error);
+          return error;
+        }
+      )
+}
+
+export function reqGetDesires(vk_id) {
+  const body = {vk_id}
+      return fetch(url +"/getdesires", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body)

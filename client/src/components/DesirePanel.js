@@ -1,6 +1,9 @@
 import React from 'react'
 import { 
-    Gallery,
+    Div,
+    Gallery, 
+    Group,
+    Title
     // Group,
     // Header
   } from '@vkontakte/vkui';
@@ -20,11 +23,11 @@ import {
 
 export default function DesirePanel (props) {
     
-   
+   console.log(props.desire.description)
     return(
-        // <Group >
+        <Group >
             <Gallery
-            slideWidth="100%"
+            slideWidth="110%"
             style={{ height: 350 }}
             >
             <div style={{backgroundColor: 'var(--destructive)' }} />
@@ -53,6 +56,12 @@ export default function DesirePanel (props) {
                 }}
             />
             </Gallery>
-        // </Group>
+            <Div>
+                <Title level="1" weight="heavy" style={{ marginBottom: 16 }}>{props.desire.description}</Title>
+                <Title level="2" weight="regular" style={{ marginBottom: 16 }}>{props.desire.genre}</Title>
+                <Title level="3" weight="regular" style={{ marginBottom: 16 }}>{props.desire.name}</Title>
+                
+            </Div>
+        </Group>
     )
 }

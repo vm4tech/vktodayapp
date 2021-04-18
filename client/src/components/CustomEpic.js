@@ -5,47 +5,42 @@ import {
   Group,
   Panel,
   PanelHeader,
-  PanelHeaderProps,
   PanelHeaderBack,
   Placeholder,
   SplitCol,
   SplitLayout,
   Tabbar,
   TabbarItem,
-  usePlatform,
   View,
   ViewWidth,
-  VKCOM,
-  withAdaptivity,
-  Button,
-  CellButton,
-  Avatar
+  withAdaptivity
   } from '@vkontakte/vkui';
 import {
     Icon28NewsfeedOutline,
     Icon28ServicesOutline,
     Icon28UserCircleOutline,
     Icon28ClipOutline,
-    Icon28MessageOutline,
-    Icon56NewsfeedOutline,
-    Icon24Add
+    Icon28MessageOutline
 } from "@vkontakte/icons"
 import NearBlock from "./NearBlock"
-import Test from './Test';
 import DesirePanel from './DesirePanel';
 import MainBlock from './MainBlock';
 import CreateDesire from './CreateDesire';
+import Desires from './Desires'
 
 
 const CustomEpic = withAdaptivity((props) => {
-    const [activeStory, setActiveStory] = useState('services');
-    const onStoryChange = (e) => {setActiveStory(e.currentTarget.dataset.story);setActivePanel(e.currentTarget.dataset.story)};
-    const [activePanel, setActivePanel] = useState("services");
+    const [activeStory, setActiveStory] = useState('main');
+    const [activePanel, setActivePanel] = useState("main");
+    const [desire, setDesire] = useState(null);
     const isDesktop = props.viewWidth >= ViewWidth.SMALL_TABLET;
-    const hasHeader = props.platform == 'web';
-    console.log(props)
-    console.log("isDeskotop ", isDesktop)
-    console.log("hasHeader ", hasHeader) 
+    // const hasHeader = props.platform === 'web';  
+    const onStoryChange = (e) => {setActiveStory(e.currentTarget.dataset.story); setActivePanel(e.currentTarget.dataset.story)}
+    const onSetDesire = (desire) => setDesire(desire);
+    // console.log("PROPS:", props)
+    // console.log("user.id", props.user)
+    // console.log("isDeskotop ", isDesktop)
+    // console.log("hasHeader ", hasHeader) 
     return (
       <SplitLayout
         style={{ justifyContent: "center" }}
@@ -167,23 +162,34 @@ const CustomEpic = withAdaptivity((props) => {
                 <NearBlock></NearBlock>
               </Panel>
             </View>
+
+
+
             <View id="services" activePanel={activePanel}>
               <Panel id="services">
                 {/* <PanelHeader visor={false} transparent={true} left={<PanelHeaderBack style={{color:"var(--background_content)"}} />}> Все желания</PanelHeader> */}
                 <PanelHeader left={<PanelHeaderBack  />}> Все желания</PanelHeader>
-                <Group style={{ height: '1000px' }}>
-                  <Placeholder header="Кажется, у вас пусто в штанах!" icon={<Icon28MessageOutline width={56} height={56} />}/>
-                  <CellButton onClick={() => setActivePanel("create_desire")} centered before={<Avatar shadow={false} size={40} ><Icon24Add /></Avatar>}>Добавить желание</CellButton>
-                </Group>
+                  <Desires onSetDesire={onSetDesire} setActivePanel={setActivePanel} user={props.user}/>
               </Panel>
               <Panel id="create_desire">
                 {/* <PanelHeader visor={false} transparent={true} left={<PanelHeaderBack style={{color:"var(--background_content)"}} />}> Все желания</PanelHeader> */}
-                <PanelHeader left={<PanelHeaderBack  />}> Создание желания</PanelHeader>
+                <PanelHeader left={<PanelHeaderBack onClick={()=> setActivePanel("services")} />}> Создание желания</PanelHeader>
                 <Group>
-                  <CreateDesire user={props.user}></CreateDesire>
+                  <CreateDesire  user={props.user}/>
                 </Group>
               </Panel>
+              <Panel id="desire_panel">
+                <PanelHeader visor={false} transparent={true} left={<PanelHeaderBack onClick={()=> setActivePanel("services")} style={{color:"var(--background_content)"}} />}/>
+                {/* <PanelHeader left={<PanelHeaderBack onClick={()=> setActivePanel("services")} />}> Желание</PanelHeader> */}
+                {/* <Group> */}
+                  <DesirePanel desire={desire} user={props.user}/>
+                {/* </Group> */}
+              </Panel>
             </View>
+
+
+
+
             <View id="messages" activePanel={activePanel}>
               <Panel id="messages">
                 <PanelHeader left={<PanelHeaderBack />}>Сообщения</PanelHeader>

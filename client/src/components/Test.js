@@ -43,8 +43,8 @@ function Test (){
             <Input type="text" placeholder="vk_id" onChange = {e => setVk_id(e.target.value)} />
             <Input type="text" placeholder="name" onChange = {e => setName(e.target.value)} />
             <Input type="text" placeholder="firstname" onChange = {e => setFirstname(e.target.value)} />
-            <Button style={{color: "#000000"}} onClick={() => createUser()} size="l" stretched style={{ marginRight: 8 }}>Создать</Button>
-            Имя индивида: {name}
+            
+            <Button style={{color: "#000000",  marginRight: 8 }} onClick={() => createUser()} size="l" >Создать</Button>
         </FormItem>
         <FormItem top="Создание мечты">
             <Input type="text" placeholder="vk_id (потом автоматом)" onChange = {e => setVk_id(e.target.value)} />

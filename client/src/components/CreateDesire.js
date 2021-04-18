@@ -1,4 +1,4 @@
-import reqCreateDesire, {reqCreateUser} from "../actions"
+import reqCreateDesire from "../actions"
 const { React, useState } = require("react");
 const { FormItem, Input, Button} = require("@vkontakte/vkui");
 
@@ -7,7 +7,6 @@ export default function CreateDesire (props){
     const user = props.user
     const [description, setDescription] = useState("ну короче надо около 250к золотых...");
     const [genre, setGenre] = useState("Годовалый");
-    console.log("user, GSSS",user)
 
 
    
@@ -23,7 +22,6 @@ export default function CreateDesire (props){
     const createDesire = async() => {
         let response;
         console.log("USER:ID ", user.id)
-        await reqCreateUser(user.id, user.first_name, user.last_name).then(res => console.log(res));
         await reqCreateDesire(user.id, user.first_name, description, genre).then(res => {
             response = res;
             console.log(response)

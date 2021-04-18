@@ -3,12 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import bridge from '@vkontakte/vk-bridge';
-import {usePlatform} from "@vkontakte/vkui"
 
-bridge.send('VKWebAppInit',{})
-  bridge.subscribe((e) => {
-});
 
+// Init VK  Mini App
+bridge.send("VKWebAppInit");
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,5 +14,8 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+if (process.env.NODE_ENV === "development") {
+  import("./eruda").then(({ default: eruda }) => {}); //runtime download
+}
 
 
