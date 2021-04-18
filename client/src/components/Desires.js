@@ -39,7 +39,6 @@ export default function Desires (props) {
         }
         getDesires();
         console.log("desires from req:", desires)
-        // РАЗОБРАТЬСЯ С ЭТОЙ ПИЗДОЙ, А то нахера она нужна?
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     

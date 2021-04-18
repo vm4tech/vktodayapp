@@ -24,18 +24,13 @@ export default function NearBlock (props) {
     // console.log(user.id);
     // const [description, setDescription] = useState("");
     // const [mainPanel, setMainPanel] = useState("")
-    const help = (message) => {
-        props.setMainPanel(message)
-        console.log(props);
-    }
+
     const pashas = 100/36*6;
     
     return(
         <Group
             header={<Header>Ближайшие</Header>}
-        >   <div
-                 onClick = {() => help("panel2")}
-                >
+        >   
                 <Banner
                     mode="tint"
                     header="Купить машину"
@@ -58,11 +53,8 @@ export default function NearBlock (props) {
                                     }} />
                         </div>
                     }
-                    actions={<Button onClick = {() => help("panel2")}
-                        mode="overlay_primary">Посмотреть</Button>}
-                    // onClick={ () => help('panel2') }
+                   
                 />
-            </div>
               
             <Banner
                 mode="image"
@@ -86,9 +78,7 @@ export default function NearBlock (props) {
                             }} />
                     </div>
                 }
-                actions={<Button onClick = {() => help("panel2")}
-                     mode="overlay_primary">Посмотреть</Button>}
-                // onClick = {() => help("panel2")}
+                
             />
             <Banner
                 mode="image"
@@ -114,16 +104,14 @@ export default function NearBlock (props) {
                     </div>
                 }
                 
-                actions={<Button onClick = {() => help("panel2")}
-                mode="overlay_primary">Посмотреть</Button>}
-        //    onClick={ () => help('panel2') }
+  
             />
-            {/* <Banner
+            <Banner
                 header="Больше интересных подкастов в каталоге"
                 subheader="Найдите интересующие именно Вас подкасты!"
                 asideMode="expand"
                 onClick={() => console.log('[Podcast banner] onClick')}
-            /> */}
+            />
 
             <Banner
                 mode="image"
@@ -149,9 +137,7 @@ export default function NearBlock (props) {
                 }
                 imageTheme="dark"
                 onClick = {() => console.log("Паша лох!")}
-                actions={<Button onClick = {() => help("panel2")}
-                     mode="overlay_primary">Посмотреть</Button>}
-                // onClick={ () => help('panel2') }
+               
             />
             <Banner
                 mode="image"
@@ -179,9 +165,7 @@ export default function NearBlock (props) {
                 }
                 imageTheme="ligth"
                 onClick = {() => console.log("Паша лох!")}
-                actions={<Button onClick = {() => help("panel2")}
-                     mode="overlay_primary">Посмотреть</Button>}
-                // onClick={ () => help('panel2') }
+                
             />
         </Group>
     )

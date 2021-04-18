@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // import ReactDOM from 'react-dom';
 import {  
   ScreenSpinner,
@@ -8,39 +8,45 @@ import {
 } from '@vkontakte/vkui';
 import bridge from '@vkontakte/vk-bridge';
 import '@vkontakte/vkui/dist/vkui.css';
-// import {reqCheckParams} from './actions';
+import {reqCheckParams} from './actions';
 import CustomEpic from './components/CustomEpic';
+import { reqCreateUser } from './actions';
 
 
 function App () {
   // const [access, setAccess] = useState("");
   const [platform, setPlatform] = useState(null);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    id: 1,
+    first_name: "Тесто",
+    last_name: "Тестовое"  
+  });
+  const hu = useRef(user);
+  const access = useRef();
   const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
   useEffect(() => {
-    bridge.subscribe((e) => {console.log("SUBSCRIBE",e)});
-		async function fetchData() {
+    bridge.subscribe((e) => {});
+		 async function fetchData() {
       // TODO: Включить, когда можно будет с сервером тестить
-      // await reqCheckParams(window.location.search.slice(1))
-      // .then(e => {console.log("setAccess:", e)})
-      // .catch(e => console.log("Ошибка: ", e));
-      
-			await bridge.send('VKWebAppGetUserInfo')
-      .then(data => {
-        setUser(data); 
-        // console.log("USER:", user);
-      });
-      await bridge.send('VKWebAppGetClientVersion')
-      .then(data => {
-        console.log("ПЛАТФОРМА",data.platform)
-        setPlatform(data.platform)})
+      await reqCheckParams(window.location.search.slice(1))
+        .then(e => {console.log("setAccess:", e); access.current = e;})
+        .catch(e => console.log("Ошибка: ", e));
+      if (access.current){
+        await bridge.send('VKWebAppGetUserInfo')
+          .then(data => {setUser(data); hu.current = data});
+        await bridge.send('VKWebAppGetClientVersion')
+          .then(data => {setPlatform(data.platform)})
+      }
+      await reqCreateUser(hu.current.id, hu.current.first_name, hu.current.last_name)
+            .then(data => {
+              console.log("create user:", data)
+            });
+      console.log("hu.current", hu.current)
 		}
 		fetchData();
     setPopout(null);
-    // console.log("access:" , access);
-	}, []); 
-
+	},[]); 
   return (
     <ConfigProvider>
       <AdaptivityProvider>
