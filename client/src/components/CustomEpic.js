@@ -21,8 +21,6 @@ import {
     Icon28NewsfeedOutline,
     Icon28ServicesOutline,
     Icon28UserCircleOutline,
-    Icon28NotebookCheckOutline,
-    Icon56FireOutline,
     Icon24Fire
 } from "@vkontakte/icons"
 import NearBlock from "./NearBlock"
@@ -35,7 +33,7 @@ import { reqGetDesires, reqCheckParams, reqCreateUser } from '../actions';
 
 
 const CustomEpic = withAdaptivity((props) => {
-    const [platform, setPlatform] = useState(null);
+    const [ setPlatform] = useState(null);
     const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
     const [activeStory, setActiveStory] = useState('main');
     const [activePanel, setActivePanel] = useState("main");
@@ -104,6 +102,8 @@ const CustomEpic = withAdaptivity((props) => {
     const deleted = desires.filter(item => item.id !== deleteDesire.id)
     setDesires([...deleted] )
     console.log("Итог:", deleted)
+    // maybe fix it
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[deleteDesire])
 
   useEffect(() => {
@@ -111,6 +111,8 @@ const CustomEpic = withAdaptivity((props) => {
     // setDesires([...desires, addDesire])
     setDesires(prev => [...prev, addDesire])
     console.log("added desires: ",desires)
+    // maybe fix it
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[addDesire])
 
 

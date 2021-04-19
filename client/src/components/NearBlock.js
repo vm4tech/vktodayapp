@@ -1,6 +1,5 @@
 import React from 'react'
 import { Banner,
-    Button,
     Header,
     Group,
     Progress

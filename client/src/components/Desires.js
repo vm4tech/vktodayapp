@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
     Header,
     Group,
@@ -6,7 +6,6 @@ import {
     Avatar,
     CellButton
   } from '@vkontakte/vkui';
-import { reqGetDesires } from '../actions';
 import CustomBanner from './CustomBanner';
 import { Icon24Add, Icon28MessageOutline } from '@vkontakte/icons';
 
@@ -16,6 +15,7 @@ import { Icon24Add, Icon28MessageOutline } from '@vkontakte/icons';
     "https://sun9-58.userapi.com/impg/vWmU4RE9UV7JhdF8n-ZC2UNJtgFq3wFdtR-iZg/obs_dYEPHkA.jpg?size=1600x1060&quality=96&sign=d6df7f014bd21d1522392392b03524bf&type=album",
     "https://sun9-58.userapi.com/impg/KH7eV4KH1o8BefYZUgZGL7NnefMaTLNfB52jQA/09XbTS6OOT0.jpg?size=1200x1600&quality=96&sign=76fabe9a7f2bebaf31696ad32f8bd37d&type=album"
   ]
+  console.log(urls[0])
 /*TODO: 
 * 1. Посмотреть, что можно сделать с шевроном (стрелочкой), т.к. при использовании background она не показывается (слой находится выше, чем стрелка).
 * 2. Подумать над затемнением при наведении.
