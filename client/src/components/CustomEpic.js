@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { 
   Cell,
   Epic,
@@ -7,6 +7,8 @@ import {
   PanelHeader,
   PanelHeaderBack,
   Placeholder,
+  PullToRefresh,
+  ScreenSpinner,
   SplitCol,
   SplitLayout,
   Tabbar,
@@ -19,28 +21,100 @@ import {
     Icon28NewsfeedOutline,
     Icon28ServicesOutline,
     Icon28UserCircleOutline,
-    Icon28ClipOutline,
-    Icon28MessageOutline
+    Icon28NotebookCheckOutline,
+    Icon56FireOutline,
+    Icon24Fire
 } from "@vkontakte/icons"
 import NearBlock from "./NearBlock"
 import DesirePanel from './DesirePanel';
 import MainBlock from './MainBlock';
-import CreateDesire from './CreateDesire';
+import bridge from '@vkontakte/vk-bridge';
 import Desires from './Desires'
-import { reqGetDesires } from '../actions';
+import CreateDesire from './CreateDesire'
+import { reqGetDesires, reqCheckParams, reqCreateUser } from '../actions';
 
 
 const CustomEpic = withAdaptivity((props) => {
+    const [platform, setPlatform] = useState(null);
+    const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
     const [activeStory, setActiveStory] = useState('main');
     const [activePanel, setActivePanel] = useState("main");
     const [desire, setDesire] = useState(null);
     const [addDesire, setAddDesire] = useState(null);
-    // const [desires, setDesires] = useState([]);
+    const [deleteDesire, setDeleteDesire] = useState(null);
+    const [desires, setDesires] = useState([]);
+    const [refresh, setRefresh] = useState(null)
+    const access = useRef()
+    const user = useRef({
+      id: 1,
+      first_name: "Тесто",
+      last_name: "Тестовое"  
+    })
     const isDesktop = props.viewWidth >= ViewWidth.SMALL_TABLET;
     const onStoryChange = (e) => {setActiveStory(e.currentTarget.dataset.story); setActivePanel(e.currentTarget.dataset.story)}
     const onSetDesire = (desire) => setDesire(desire);
-    const onAddDesire = (desire) => setAddDesire(desire);
-   
+    
+    useEffect(()=>{
+      async function fetchData() {
+        bridge.subscribe((e) => {});
+        await reqCheckParams(window.location.search.slice(1))
+          .then(e => {console.log("setAccess:", e); access.current = e;})
+          .catch(e => console.log("Ошибка: ", e));
+        if (access.current){
+          await bridge.send('VKWebAppGetUserInfo')
+            .then(data => {
+              user.current = data; 
+            });
+          await bridge.send('VKWebAppGetClientVersion')
+            .then(data => {setPlatform(data.platform)})
+        }
+        await reqCreateUser(user.current.id, user.current.first_name, user.current.last_name)
+              .then(data => {
+                console.log("reqCreateUser:", data)
+              });
+        await reqGetDesires(user.current.id)
+          .then(e => {
+              setDesires([...e]);
+              console.log("useEffect:",e)
+          })
+          .catch(e => console.log(e))
+        console.log("end useEffect")
+        setPopout(null);
+      }
+      // https://stackoverflow.com/questions/45876514/async-function-await-not-waiting-for-promise
+      fetchData()
+        .then(res => console.log("FUCKING RES", res))
+        .catch(err => console.log("Error", err))
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+  //
+  const onRefresh = async () =>{
+    setRefresh(true)
+    await reqGetDesires(user.current.id)
+          .then(e => {
+              setDesires([...e]);
+              console.log("Refresh desires:",e);
+              setRefresh(false);
+          })
+    
+  }
+
+  useEffect(() =>{
+    const deleted = desires.filter(item => item.id !== deleteDesire.id)
+    setDesires([...deleted] )
+    console.log("Итог:", deleted)
+  },[deleteDesire])
+
+  useEffect(() => {
+    // как лучше - хз)
+    // setDesires([...desires, addDesire])
+    setDesires(prev => [...prev, addDesire])
+    console.log("added desires: ",desires)
+  },[addDesire])
+
+
+
     return (
       <SplitLayout
         style={{ justifyContent: "center" }}
@@ -73,7 +147,7 @@ const CustomEpic = withAdaptivity((props) => {
                 >
                   Все
                 </Cell>
-                <Cell
+                {/* <Cell
                   disabled={activeStory === 'messages'}
                   style={activeStory === 'messages' ? {
                     backgroundColor: "var(--button_secondary_background)",
@@ -96,7 +170,7 @@ const CustomEpic = withAdaptivity((props) => {
                   before={<Icon28ClipOutline />}
                 >
                   clips
-                </Cell>
+                </Cell> */}
                 <Cell
                   disabled={activeStory === 'profile'}
                   style={activeStory === 'profile' ? {
@@ -135,7 +209,7 @@ const CustomEpic = withAdaptivity((props) => {
                 data-story="services"
                 text="Все"
               ><Icon28ServicesOutline/></TabbarItem>
-              <TabbarItem
+              {/* <TabbarItem
                 onClick={onStoryChange}
                 selected={activeStory === 'messages'}
                 data-story="messages"
@@ -147,7 +221,7 @@ const CustomEpic = withAdaptivity((props) => {
                 selected={activeStory === 'clips'}
                 data-story="clips"
                 text="Клипы"
-              ><Icon28ClipOutline /></TabbarItem>
+              ><Icon28ClipOutline /></TabbarItem> */}
               <TabbarItem
                 onClick={onStoryChange}
                 selected={activeStory === 'profile'}
@@ -156,10 +230,10 @@ const CustomEpic = withAdaptivity((props) => {
               ><Icon28UserCircleOutline /></TabbarItem>
             </Tabbar>
           }>
-            <View popout={props.popout} id="main" activePanel={activePanel}>
+            <View popout={popout} id="main" activePanel={activePanel}>
               <Panel id="main">
-                <MainBlock></MainBlock>
-                <NearBlock></NearBlock>
+                <MainBlock></MainBlock> 
+                <NearBlock></NearBlock> 
               </Panel>
             </View>
 
@@ -168,29 +242,49 @@ const CustomEpic = withAdaptivity((props) => {
             <View id="services" activePanel={activePanel}>
               <Panel id="services">
                 {/* <PanelHeader visor={false} transparent={true} left={<PanelHeaderBack style={{color:"var(--background_content)"}} />}> Все желания</PanelHeader> */}
-                <PanelHeader left={<PanelHeaderBack  />}> Все желания</PanelHeader>
-                  <Desires addDesire={addDesire} onSetDesire={onSetDesire} setActivePanel={setActivePanel} user={props.user}/>
+                
+                <PanelHeader left={<Icon24Fire width={35} height={35}/>} > Все желания</PanelHeader>
+                <PullToRefresh onRefresh={onRefresh} isFetching={refresh}>                
+                  <Desires 
+                    desires={desires} 
+                    addDesire={addDesire} 
+                    onSetDesire={onSetDesire} 
+                    setActivePanel={setActivePanel} 
+                    user={user.current}
+                  />
+                </PullToRefresh>
+
               </Panel>
               <Panel id="create_desire">
                 {/* <PanelHeader visor={false} transparent={true} left={<PanelHeaderBack style={{color:"var(--background_content)"}} />}> Все желания</PanelHeader> */}
                 <PanelHeader left={<PanelHeaderBack onClick={()=> setActivePanel("services")} />}> Создание желания</PanelHeader>
                 <Group>
-                  <CreateDesire onAddDesire={onAddDesire} user={props.user} setActivePanel={setActivePanel} />
+                  <CreateDesire 
+                    setAddDesire={setAddDesire}
+                    user={user.current} 
+                    setActivePanel={setActivePanel} 
+                  />
                 </Group>
               </Panel>
               <Panel id="desire_panel">
-                <PanelHeader visor={false} transparent={true} left={<PanelHeaderBack onClick={()=> setActivePanel("services")} style={{color:"var(--background_content)"}} />}/>
-                {/* <PanelHeader left={<PanelHeaderBack onClick={()=> setActivePanel("services")} />}> Желание</PanelHeader> */}
-                {/* <Group> */}
-                  <DesirePanel desire={desire} user={props.user}/>
-                {/* </Group> */}
+                <PanelHeader 
+                  visor={false}
+                  transparent={true}
+                  left={<PanelHeaderBack onClick={()=> setActivePanel("services")} style={{color:"var(--background_content)"}} />}
+                />
+                  <DesirePanel 
+                    desire={desire}
+                    user={user.current}
+                    setDeleteDesire={setDeleteDesire}
+                    setActivePanel={setActivePanel}
+                  />
               </Panel>
             </View>
 
 
 
 
-            <View id="messages" activePanel={activePanel}>
+            {/* <View id="messages" activePanel={activePanel}>
               <Panel id="messages">
                 <PanelHeader left={<PanelHeaderBack />}>Сообщения</PanelHeader>
                 <Group style={{ height: '1000px' }}>
@@ -207,19 +301,19 @@ const CustomEpic = withAdaptivity((props) => {
                   </Placeholder>
                 </Group>
               </Panel>
-            </View>
+            </View> */}
             <View id="profile" activePanel={activePanel}>
               <Panel id="profile">
                 <PanelHeader shadow={true} left={<PanelHeaderBack />}>Профиль</PanelHeader>
-                <Group style={{ height: '1000px' }}>
+                <Group >
                   <Placeholder icon={<Icon28UserCircleOutline width={56} height={56} />}>
                   </Placeholder>
                 </Group>
               </Panel>
             </View>
           </Epic>
-        </SplitCol>
-      </SplitLayout>
+        </SplitCol> 
+      </SplitLayout> 
     );
   }, {
     viewWidth: true

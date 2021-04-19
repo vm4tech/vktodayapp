@@ -3,7 +3,7 @@
 // TODO: Попробовать заполнять желания и вытягивать их
 //  КАЖДЫЙ РАЗ ОТПРАВЛЯТЬ СТРОЧКУ С ДАННЫМИ SIGN B И.т.п???!?!?
 // const url = "http://localhost:5000"
-const url = "https://30f6f9ce4bf4.ngrok.io"
+const url = "https://49b7f07904c9.ngrok.io"
 export function reqCheckParams(params) {
   const body = {params}
       return fetch(url + "/checkparams", {
@@ -14,10 +14,11 @@ export function reqCheckParams(params) {
       .then(res => res.json())
       .then(
         (result) => {
-          // console.log("RESULT: ", result)
+          console.log("RESULT: ", result)
           return result;
         },
         (error) => {
+          console.log("ERR:", error)
           return error;
         }
       )
@@ -46,6 +47,24 @@ export function reqCreateUser(vk_id, name, firstname) {
 export default function reqCreateDesire(vk_id, name, description, genre) {
   const body = {vk_id, name, description, genre}
     return fetch(url + "/createdesire", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          return result;
+        },
+        (error) => {
+          console.log(error);
+          return error;
+        }
+      )
+}
+export function reqDeleteDesire(vk_id, desire) {
+  const body = {vk_id, desire}
+    return fetch(url + "/deletedesire", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body)

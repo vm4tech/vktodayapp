@@ -1,7 +1,14 @@
 import reqCreateDesire from "../actions"
-import {addDesire} from './Desires'
+import { 
+    FormItem,
+    Input,
+    Button,
+    Textarea,
+    Select, 
+    Div
+} from "@vkontakte/vkui";
 const { React, useState } = require("react");
-const { FormItem, Input, Button, Textarea, Select, CustomSelectOption} = require("@vkontakte/vkui");
+
 
 
 export default function CreateDesire (props){
@@ -13,25 +20,14 @@ export default function CreateDesire (props){
         "Недельный",
          "Навсегда"]
     const [genre, setGenre] = useState(genres[0]);
-   
-    // const createDesire = () => {
-    //     let response;
-    //     reqCreateDesire(vk_id, name, description, genre).then(res => {
-    //         response = res;
-    //     })
-    //     .then(() => setId(response))
-    //     .then(() => console.log("И ЭТО...", response));
-    //   };
     
     const createDesire = async() => {
         let response;
         console.log("USER:ID ", user.id)
         await reqCreateDesire(user.id, name, description, genre).then(res => {
             response = res;
-            props.onAddDesire(response);
+            props.setAddDesire(response);
         })
-        //  setId([...response]);
-         console.log("И ЭТО...", response);
       };
 
     return(
@@ -51,11 +47,12 @@ export default function CreateDesire (props){
                   options={genres.map(genre => ({label: genre, value: genre }) )} 
                 />
         </FormItem>
+        <Div>
             <Button onClick={e  =>  {
                     createDesire();
+                    props.setActivePanel("services")
                 }} size="l" stretched style={{ marginRight: 8 }}>Создать</Button>
-        
-         {/* {id.map((id) => <p> id from request: {id}</p> )}  */}
+        </Div>
         </div>
 
     )

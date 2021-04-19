@@ -3,11 +3,12 @@ import {
     Div,
     Gallery, 
     Group,
-    Title
+    Title,
+    CellButton
     // Group,
     // Header
   } from '@vkontakte/vkui';
-
+import {reqDeleteDesire} from '../actions'
   let urls = [
     "https://www.mercedes-benz.ru//passengercars/mercedes-benz-cars/models/amg-gt/coupe-c190/design/model-comparison/_jcr_content/comparisonslider/par/comparisonslide_379682962/exteriorImage.MQ6.12.20200831120232.jpeg",
     "https://www.erikastravelventures.com/wp-content/uploads/2018/10/IMG_6858-e1540290382435.jpg",
@@ -22,8 +23,17 @@ import {
 */
 
 export default function DesirePanel (props) {
-    
-   console.log(props.desire.description)
+    const user = props.user;
+    const onDeleteDesire = async() => {
+        console.log("USER:ID ", user.id)
+        await reqDeleteDesire(user.id, props.desire).then(res => {
+            console.log("res of delete",res)
+            props.setDeleteDesire(res);
+            props.setActivePanel("services")
+        })
+      };
+
+
     return(
         <Group >
             <Gallery
@@ -60,7 +70,13 @@ export default function DesirePanel (props) {
                 <Title level="1" weight="heavy" style={{ marginBottom: 16 }}>{props.desire.description}</Title>
                 <Title level="2" weight="regular" style={{ marginBottom: 16 }}>{props.desire.genre}</Title>
                 <Title level="3" weight="regular" style={{ marginBottom: 16 }}>{props.desire.name}</Title>
-                
+                <CellButton 
+                    centered 
+                    mode="danger"
+                    onClick={onDeleteDesire}
+                >
+                    Удалить {props.desire.name}
+                </CellButton>
             </Div>
         </Group>
     )

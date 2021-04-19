@@ -33,18 +33,19 @@ export default function CustomBanner (props) {
                     }}
                 >
                 <Banner
-                    mode="tint"
-                    header={props.desire.description}
+                    mode="image"
+                    header={props.desire.name}
                     size="m"
                     asideMode="expand"
                     subheader= "Выполнено 2 из 4"
                     background={
                         <div
                         style={{
-                            // backgroundImage: `url(${urls[0]})`,
+                            
                             backgroundPosition: 'center',
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
+                            backgroundImage: `url(${urls[1]})`,
                         }}
                         >
                             <Progress 
