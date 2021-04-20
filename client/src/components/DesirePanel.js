@@ -9,6 +9,7 @@ import {
     // Header
   } from '@vkontakte/vkui';
 import {reqDeleteDesire} from '../actions'
+import { Icon24Add } from '@vkontakte/icons';
   let urls = [
     "https://www.mercedes-benz.ru//passengercars/mercedes-benz-cars/models/amg-gt/coupe-c190/design/model-comparison/_jcr_content/comparisonslider/par/comparisonslide_379682962/exteriorImage.MQ6.12.20200831120232.jpeg",
     "https://www.erikastravelventures.com/wp-content/uploads/2018/10/IMG_6858-e1540290382435.jpg",
@@ -77,7 +78,15 @@ export default function DesirePanel (props) {
                 >
                     Удалить {props.desire.name}
                 </CellButton>
+                <CellButton 
+                    centered 
+                    before={<Icon24Add />}
+                    onClick={() => props.setActivePanel("create_subdesire")}
+                >
+                    Добавить связанные желания
+                </CellButton>
             </Div>
+            
         </Group>
     )
 }

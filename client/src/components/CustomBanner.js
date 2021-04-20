@@ -5,6 +5,7 @@ import { Banner,
   } from '@vkontakte/vkui';
 
   let urls = [
+    "https://sun9-34.userapi.com/impg/4wKXRg8_H4oV4gdwC5srt7g_90xgQwjQmRtw8g/nHZz434fOlg.jpg?size=732x544&quality=96&sign=2bf9b2e8190a051ddde156382c1f69a3&type=album",
     "https://mir-s3-cdn-cf.behance.net/project_modules/fs/6b7c36116015757.605df87081ee0.jpg",
     "https://www.mercedes-benz.ru//passengercars/mercedes-benz-cars/models/amg-gt/coupe-c190/design/model-comparison/_jcr_content/comparisonslider/par/comparisonslide_379682962/exteriorImage.MQ6.12.20200831120232.jpeg",
     "https://www.erikastravelventures.com/wp-content/uploads/2018/10/IMG_6858-e1540290382435.jpg",
@@ -45,7 +46,7 @@ export default function CustomBanner (props) {
                             backgroundPosition: 'center',
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
-                            backgroundImage: `url(${urls[1]})`,
+                            backgroundImage: `url(${urls[0]})`,
                         }}
                         >
                             <Progress 

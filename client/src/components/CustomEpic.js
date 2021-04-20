@@ -33,8 +33,8 @@ import { reqGetDesires, reqCheckParams, reqCreateUser } from '../actions';
 
 
 const CustomEpic = withAdaptivity((props) => {
-    const [ setPlatform] = useState(null);
-    const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+    const [platform, setPlatform] = useState(null);
+    const [popout, setPopout] = useState(<ScreenSpinner size='large'/>);
     const [activeStory, setActiveStory] = useState('main');
     const [activePanel, setActivePanel] = useState("main");
     const [desire, setDesire] = useState(null);
@@ -118,9 +118,11 @@ const CustomEpic = withAdaptivity((props) => {
 
 
     return (
+      !popout ?
       <SplitLayout
         style={{ justifyContent: "center" }}
-      >
+      > 
+        
         {isDesktop && (
           <SplitCol spaced={true} fixed width="250px" maxWidth="280px">
             <Panel>
@@ -265,6 +267,7 @@ const CustomEpic = withAdaptivity((props) => {
                     setAddDesire={setAddDesire}
                     user={user.current} 
                     setActivePanel={setActivePanel} 
+                    activePanel={activePanel}
                   />
                 </Group>
               </Panel>
@@ -280,6 +283,19 @@ const CustomEpic = withAdaptivity((props) => {
                     setDeleteDesire={setDeleteDesire}
                     setActivePanel={setActivePanel}
                   />
+              </Panel>
+              <Panel id="create_subdesire">
+                {/* <PanelHeader visor={false} transparent={true} left={<PanelHeaderBack style={{color:"var(--background_content)"}} />}> Все желания</PanelHeader> */}
+                <PanelHeader left={<PanelHeaderBack onClick={()=> setActivePanel("services")} />}> Создание subжелания</PanelHeader>
+                <Group>
+                  <CreateDesire 
+                    desire={desire}
+                    setAddDesire={setAddDesire}
+                    user={user.current} 
+                    setActivePanel={setActivePanel} 
+                    activePanel={activePanel}
+                  />
+                </Group>
               </Panel>
             </View>
 
@@ -316,6 +332,7 @@ const CustomEpic = withAdaptivity((props) => {
           </Epic>
         </SplitCol> 
       </SplitLayout> 
+      : popout
     );
   }, {
     viewWidth: true

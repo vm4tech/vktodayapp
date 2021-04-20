@@ -1,4 +1,4 @@
-import reqCreateDesire from "../actions"
+import reqCreateDesire, {reqCreateSubdesire} from "../actions"
 import { 
     FormItem,
     Input,
@@ -22,13 +22,19 @@ export default function CreateDesire (props){
     const [genre, setGenre] = useState(genres[0]);
     
     const createDesire = async() => {
-        let response;
         console.log("USER:ID ", user.id)
         await reqCreateDesire(user.id, name, description, genre).then(res => {
-            response = res;
-            props.setAddDesire(response);
+            props.setAddDesire(res);
         })
+        props.setActivePanel("services")
       };
+    const createSubDesire = async() => {
+        console.log("USER:ID for subdesire ", user.id)
+        await reqCreateSubdesire(user.id, name, props.desire.id).then(res => {
+            props.setAddDesire(res);
+        })
+        props.setActivePanel("desire_panel")
+    }
 
     return(
         <div>
@@ -48,9 +54,12 @@ export default function CreateDesire (props){
                 />
         </FormItem>
         <Div>
+            {props.activePanel}
             <Button onClick={e  =>  {
-                    createDesire();
-                    props.setActivePanel("services")
+                    if (props.activePanel == "create_desire")
+                        createDesire();
+                    else 
+                        createSubDesire();
                 }} size="l" stretched style={{ marginRight: 8 }}>Создать</Button>
         </Div>
         </div>
