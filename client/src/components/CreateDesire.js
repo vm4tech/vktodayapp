@@ -56,7 +56,7 @@ export default function CreateDesire (props){
         <Div>
             {props.activePanel}
             <Button onClick={e  =>  {
-                    if (props.activePanel == "create_desire")
+                    if (props.activePanel === "create_desire")
                         createDesire();
                     else 
                         createSubDesire();

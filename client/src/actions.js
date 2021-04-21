@@ -3,9 +3,12 @@
 // TODO: Попробовать заполнять желания и вытягивать их
 //  КАЖДЫЙ РАЗ ОТПРАВЛЯТЬ СТРОЧКУ С ДАННЫМИ SIGN B И.т.п???!?!?
 // const url = "http://localhost:5000"
-const url = "https://28da900421d0.ngrok.io"
+const url = "https://33fe101c7999.ngrok.io"
+let authParams = "ha, gayyyyyy"
+
 export function reqCheckParams(params) {
   const body = {params}
+  authParams = params;
       return fetch(url + "/checkparams", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -25,7 +28,7 @@ export function reqCheckParams(params) {
 }
 
 export function reqCreateUser(vk_id, name, firstname) {
-    const body = {vk_id, name, firstname}
+    const body = {authParams, vk_id, name, firstname}
         return fetch(url +"/createuser", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -45,7 +48,7 @@ export function reqCreateUser(vk_id, name, firstname) {
 }
 
 export default function reqCreateDesire(vk_id, name, description, genre) {
-  const body = {vk_id, name, description, genre}
+  const body = {authParams, vk_id, name, description, genre}
     return fetch(url + "/createdesire", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -64,7 +67,7 @@ export default function reqCreateDesire(vk_id, name, description, genre) {
 }
 
 export function reqDeleteDesire(vk_id, desire) {
-  const body = {vk_id, desire}
+  const body = {authParams, vk_id, desire}
     return fetch(url + "/deletedesire", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -83,7 +86,7 @@ export function reqDeleteDesire(vk_id, desire) {
 }
 
 export function reqCreateSubdesire(vk_id, name, desire_id) {
-  const body = {vk_id, name, desire_id}
+  const body = {authParams, vk_id, name, desire_id}
     return fetch(url + "/createsubdesire", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -102,7 +105,7 @@ export function reqCreateSubdesire(vk_id, name, desire_id) {
 }
 
 export function reqGetDesires(vk_id) {
-  const body = {vk_id}
+  const body = {authParams, vk_id}
       return fetch(url +"/getdesires", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
