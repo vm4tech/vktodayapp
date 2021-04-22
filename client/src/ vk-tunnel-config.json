@@ -1,0 +1,7 @@
+{
+    "NODE_TLS_REJECT_UNAUTHORIZED": 1,
+    "PROXY_HTTP_PROTO":"https",
+    "PROXY_WS_PROTO":"wss",
+    "PROXY_HOST": "localhost",
+    "PROXY_PORT": 3000
+  }

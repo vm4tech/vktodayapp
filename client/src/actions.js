@@ -3,7 +3,7 @@
 // TODO: Попробовать заполнять желания и вытягивать их
 //  КАЖДЫЙ РАЗ ОТПРАВЛЯТЬ СТРОЧКУ С ДАННЫМИ SIGN B И.т.п???!?!?
 // const url = "http://localhost:5000"
-const url = "https://33fe101c7999.ngrok.io"
+const url = "https://08a06c801554.ngrok.io"
 let authParams = "ha, gayyyyyy"
 
 export function reqCheckParams(params) {
@@ -107,6 +107,25 @@ export function reqCreateSubdesire(vk_id, name, desire_id) {
 export function reqGetDesires(vk_id) {
   const body = {authParams, vk_id}
       return fetch(url +"/getdesires", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          return result;
+        },
+        (error) => {
+          console.log(error);
+          return error;
+        }
+      )
+}
+
+export function reqGetSubDesires(vk_id, desire) {
+  const body = {authParams, vk_id, desire}
+      return fetch(url +"/getsubdesires", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body)

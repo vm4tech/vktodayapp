@@ -1,15 +1,17 @@
-import React from 'react'
+import React, {useState, useEffect}from 'react'
 import { 
     Div,
     Gallery, 
     Group,
     Title,
-    CellButton
+    CellButton,
+    FormItem
     // Group,
     // Header
   } from '@vkontakte/vkui';
-import {reqDeleteDesire} from '../actions'
+import {reqDeleteDesire, reqGetSubDesires} from '../actions'
 import { Icon24Add } from '@vkontakte/icons';
+import { Checkbox } from '@vkontakte/vkui/dist/components/Checkbox/Checkbox';
   let urls = [
     "https://www.mercedes-benz.ru//passengercars/mercedes-benz-cars/models/amg-gt/coupe-c190/design/model-comparison/_jcr_content/comparisonslider/par/comparisonslide_379682962/exteriorImage.MQ6.12.20200831120232.jpeg",
     "https://www.erikastravelventures.com/wp-content/uploads/2018/10/IMG_6858-e1540290382435.jpg",
@@ -25,6 +27,15 @@ import { Icon24Add } from '@vkontakte/icons';
 
 export default function DesirePanel (props) {
     const user = props.user;
+    const [subdesires, setSubDesires] = useState([]);
+    useEffect(async()=>{
+        await reqGetSubDesires(user.id, props.desire)
+        .then(res => {
+            console.log("subdesires:", res);
+            setSubDesires([...res]);
+        })
+    },[])
+
     const onDeleteDesire = async() => {
         console.log("USER:ID ", user.id)
         await reqDeleteDesire(user.id, props.desire).then(res => {
@@ -71,6 +82,9 @@ export default function DesirePanel (props) {
                 <Title level="1" weight="heavy" style={{ marginBottom: 16 }}>{props.desire.description}</Title>
                 <Title level="2" weight="regular" style={{ marginBottom: 16 }}>{props.desire.genre}</Title>
                 <Title level="3" weight="regular" style={{ marginBottom: 16 }}>{props.desire.name}</Title>
+                <FormItem>
+                    {subdesires.map(sub => <Checkbox>{sub.name}</Checkbox>)}
+                </FormItem>
                 <CellButton 
                     centered 
                     mode="danger"

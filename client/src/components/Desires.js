@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Header,
     Group,
@@ -17,38 +17,15 @@ import { Icon24Add, Icon28MessageOutline } from '@vkontakte/icons';
   ]
   console.log(urls[0])
 /*TODO: 
-* 1. Посмотреть, что можно сделать с шевроном (стрелочкой), т.к. при использовании background она не показывается (слой находится выше, чем стрелка).
+** 1. Посмотреть, что можно сделать с шевроном (стрелочкой), т.к. при использовании background она не показывается (слой находится выше, чем стрелка).
 * 2. Подумать над затемнением при наведении.
 * 3. Подумать над качеством импортируемого изображения (т.к. при большом размере она долго прогружается) 
 */
 
 export default function Desires (props) {
-    // const user = props.user;
-    // console.log(urls);
-    // const [description, setDescription] = useState("");
-    // const [mainPanel, setMainPanel] = useState("")
-    // const [update, setUpdate] = useState(1);
-  //  const addDesire = (desire) => {setDesires(prev => [...prev, desire])}
-      // const [desires, setDesires] = useState([]);
-    // useEffect(()=>{
-    //     async function getDesires(){
-    //         await reqGetDesires(props.user.id)
-    //         .then(e => {
-    //             setDesires([...e]);
-    //             console.log("useEffect:",e)
-    //         })
-    //         .catch(e => console.log(e))
-    //     }
-    //     getDesires();
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // },[update])
-
-  
     
     return(
-        
         <Group
-            // style={{ height: '1000px' }}
             header={<Header>Ближайшие</Header>}
         >   
         <CellButton onClick={() => props.setActivePanel("create_desire")} centered before={<Avatar shadow={false} size={40} ><Icon24Add /></Avatar>}>Добавить желание</CellButton> 

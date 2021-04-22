@@ -26,12 +26,12 @@ export default function CreateDesire (props){
         await reqCreateDesire(user.id, name, description, genre).then(res => {
             props.setAddDesire(res);
         })
-        props.setActivePanel("services")
+        props.setActivePanel("desire_panel")
       };
     const createSubDesire = async() => {
         console.log("USER:ID for subdesire ", user.id)
         await reqCreateSubdesire(user.id, name, props.desire.id).then(res => {
-            props.setAddDesire(res);
+            props.setAddSubDesire(res);
         })
         props.setActivePanel("desire_panel")
     }
@@ -45,6 +45,7 @@ export default function CreateDesire (props){
         <FormItem top="Описание">
             <Textarea placeholder="Описание" onChange = {e => setDescription(e.target.value)} />
         </FormItem>
+        {props.activePanel === "create_desire" ? 
         <FormItem top="Жанр">
             {/* <Input type="text" placeholder="Жанр мечты" onChange = {e => setGenre(e.target.value)} /> */}
                 <Select
@@ -53,6 +54,7 @@ export default function CreateDesire (props){
                   options={genres.map(genre => ({label: genre, value: genre }) )} 
                 />
         </FormItem>
+        : null}
         <Div>
             {props.activePanel}
             <Button onClick={e  =>  {

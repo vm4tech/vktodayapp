@@ -39,6 +39,7 @@ const CustomEpic = withAdaptivity((props) => {
     const [activePanel, setActivePanel] = useState("main");
     const [desire, setDesire] = useState(null);
     const [addDesire, setAddDesire] = useState(null);
+    const [addSubDesire, setAddSubDesire] = useState(null);
     const [deleteDesire, setDeleteDesire] = useState(null);
     const [desires, setDesires] = useState([]);
     const [refresh, setRefresh] = useState(null)
@@ -66,6 +67,7 @@ const CustomEpic = withAdaptivity((props) => {
           await bridge.send('VKWebAppGetClientVersion')
             .then(data => {setPlatform(data.platform)})
         }
+        // Придумать авторизацию для пользователей, т.к. проверка пользователя переносится на бэк (из-за необходимости проверки вставляемых данных)
         await reqCreateUser(user.current.id, user.current.first_name, user.current.last_name)
               .then(data => {
                 console.log("reqCreateUser:", data)
@@ -213,19 +215,6 @@ const CustomEpic = withAdaptivity((props) => {
                 data-story="services"
                 text="Все"
               ><Icon28ServicesOutline/></TabbarItem>
-              {/* <TabbarItem
-                onClick={onStoryChange}
-                selected={activeStory === 'messages'}
-                data-story="messages"
-                label="12"
-                text="Сообщения"
-              ><Icon28MessageOutline /></TabbarItem>
-              <TabbarItem
-                onClick={onStoryChange}
-                selected={activeStory === 'clips'}
-                data-story="clips"
-                text="Клипы"
-              ><Icon28ClipOutline /></TabbarItem> */}
               <TabbarItem
                 onClick={onStoryChange}
                 selected={activeStory === 'profile'}
@@ -254,6 +243,8 @@ const CustomEpic = withAdaptivity((props) => {
                     addDesire={addDesire} 
                     onSetDesire={onSetDesire} 
                     setActivePanel={setActivePanel} 
+                    addSubDesire={addSubDesire}
+                    setAddSubDesire={setAddSubDesire}
                     user={user.current}
                   />
                 </PullToRefresh>
@@ -290,7 +281,8 @@ const CustomEpic = withAdaptivity((props) => {
                 <Group>
                   <CreateDesire 
                     desire={desire}
-                    setAddDesire={setAddDesire}
+                    setAddSubDesire={setAddSubDesire}
+                    addSubDesire={addSubDesire}
                     user={user.current} 
                     setActivePanel={setActivePanel} 
                     activePanel={activePanel}
@@ -298,28 +290,6 @@ const CustomEpic = withAdaptivity((props) => {
                 </Group>
               </Panel>
             </View>
-
-
-
-
-            {/* <View id="messages" activePanel={activePanel}>
-              <Panel id="messages">
-                <PanelHeader left={<PanelHeaderBack />}>Сообщения</PanelHeader>
-                <Group style={{ height: '1000px' }}>
-                  <Placeholder icon={<Icon28MessageOutline width={56} height={56} />}>
-                  </Placeholder>
-                </Group>
-              </Panel>
-            </View>
-            <View id="clips" activePanel={activePanel}>
-              <Panel id="clips">
-                <PanelHeader left={<PanelHeaderBack />}>Клипы</PanelHeader>
-                <Group style={{ height: '1000px' }}>
-                  <Placeholder  icon={<Icon28ClipOutline width={56} height={56} />}>
-                  </Placeholder>
-                </Group>
-              </Panel>
-            </View> */}
             <View id="profile" activePanel={activePanel}>
               <Panel id="profile">
                 <PanelHeader shadow={true} left={<PanelHeaderBack />}>Профиль</PanelHeader>

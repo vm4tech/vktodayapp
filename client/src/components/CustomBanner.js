@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Banner,
     Button,
     Progress
   } from '@vkontakte/vkui';
+import { reqGetSubDesires } from '../actions';
 
   let urls = [
     "https://sun9-34.userapi.com/impg/4wKXRg8_H4oV4gdwC5srt7g_90xgQwjQmRtw8g/nHZz434fOlg.jpg?size=732x544&quality=96&sign=2bf9b2e8190a051ddde156382c1f69a3&type=album",
@@ -22,7 +23,7 @@ export default function CustomBanner (props) {
     // const user = props.user;
     // console.log(user.id);
     // const [mainPanel, setMainPanel] = useState("")
-  
+   
 
     
     return(
@@ -58,7 +59,6 @@ export default function CustomBanner (props) {
                     }
                     actions={<Button onClick = {() => props.setActivePanel("desire_panel")}
                         mode="overlay_primary">Посмотреть</Button>}
-                    // onClick={ () => desirePanel('panel2') }
                 />
         </div>
     )
