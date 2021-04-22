@@ -30,6 +30,6 @@ Today! will help you to motivate you to do things that will make your life happy
 - [ ] Testing in vk.com (vk testers)
 - [ ] Release in catalog on masedar.com & vk.com
 
-##For all questions:
+## For all questions:
 :mailbox_with_no_mail: [Instagram](https://www.instagram.com/masedar.prod "masedar")
 :mailbox_with_no_mail: [VK](https://www.vk.com/masedar "masedar")
