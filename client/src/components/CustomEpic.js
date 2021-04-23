@@ -88,7 +88,7 @@ const CustomEpic = withAdaptivity((props) => {
 
       // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
-  //
+
   const onRefresh = async () =>{
     setRefresh(true)
     await reqGetDesires(user.current.id)
@@ -153,31 +153,7 @@ const CustomEpic = withAdaptivity((props) => {
                 >
                   Все
                 </Cell>
-                {/* <Cell
-                  disabled={activeStory === 'messages'}
-                  style={activeStory === 'messages' ? {
-                    backgroundColor: "var(--button_secondary_background)",
-                    borderRadius: 8
-                  } : {}}
-                  data-story="messages"
-                  onClick={onStoryChange}
-                  before={<Icon28MessageOutline />}
-                >
-                  messages
-                </Cell>
-                <Cell
-                  disabled={activeStory === 'clips'}
-                  style={activeStory === 'clips' ? {
-                    backgroundColor: "var(--button_secondary_background)",
-                    borderRadius: 8
-                  } : {}}
-                  data-story="clips"
-                  onClick={onStoryChange}
-                  before={<Icon28ClipOutline />}
-                >
-                  clips
-                </Cell> */}
-                <Cell
+              <Cell
                   disabled={activeStory === 'profile'}
                   style={activeStory === 'profile' ? {
                     backgroundColor: "var(--button_secondary_background)",

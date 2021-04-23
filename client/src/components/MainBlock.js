@@ -13,10 +13,9 @@ import {
 
 export default function MainBlock (props) {
     
-    // const [description, setDescription] = useState("lalala");
 
     return(
-        // <div>
+        // Причесываю компоненты 
         // TODO: Сделать обрезание текста, чтобы не выходило за границы, иначе режется верстка у ContentCard (проверить можно вставив много букв в caption)
         // TODO: Понять, почему не работает вне vk скрол с shift и скрол до конца. 
              <Group header={<Header>Главные</Header>}> 
@@ -49,60 +48,7 @@ export default function MainBlock (props) {
                   mode="tint"
                   maxHeight={150}
                 />
-               {/* <ContentCard 
-                mode="image"
-                header="Мои достижения"
-                subheader="Разблокировано 9 из 36"
-                  // image = {urls[0]}
-                  >
-                  </ContentCard>
-                <Card>
-                <div style={{ 
-                    paddingBottom: '50%' ,
-                    backgroundImage: `url(${urls[1]})`,
-                    backgroundPosition: 'center',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                  }} />
-                </Card>
-                <Card>
-                <div style={{ 
-                    paddingBottom: '50%' ,
-                    backgroundImage: `url(${urls[1]})`,
-                    backgroundPosition: 'center',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                  }} />
-                </Card>
-                <Card>
-                <div style={{ 
-                    paddingBottom: '50%' ,
-                    backgroundImage: `url(${urls[1]})`,
-                    backgroundPosition: 'center',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                  }} />
-                </Card>
-                <Card>
-                <div style={{ 
-                    paddingBottom: '50%' ,
-                    backgroundImage: `url(${urls[1]})`,
-                    backgroundPosition: 'center',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                  }} />
-                </Card>
-                <Card>
-                  <div style={{ 
-                    paddingBottom: '50%' ,
-                    backgroundImage: `url(${urls[1]})`,
-                    backgroundPosition: 'center',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                  }} />
-                </Card> */}
-              </CardScroll>
+                             </CardScroll>
             </Group>
-        // </div>
     )
 }
