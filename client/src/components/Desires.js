@@ -31,7 +31,7 @@ export default function Desires (props) {
         <CellButton onClick={() => props.setActivePanel("create_desire")} centered before={<Avatar shadow={false} size={40} ><Icon24Add /></Avatar>}>Добавить желание</CellButton> 
         {props.desires.size === 0 ? 
             <Placeholder 
-              header="Кажется, у вас пусто в штанах!"
+              header="Кажется, у вас пусто между ног..."
               icon={
                 <Icon28MessageOutline 
                   width={56} height={56} 
