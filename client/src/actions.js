@@ -1,9 +1,8 @@
 // TODO: Решить что делать с разграничением сервисов на 1 домене
 // TODO: Сверстать нормальную начальную страницу для каждого пользователя
-// TODO: Попробовать заполнять желания и вытягивать их
 //  КАЖДЫЙ РАЗ ОТПРАВЛЯТЬ СТРОЧКУ С ДАННЫМИ SIGN B И.т.п???!?!?
 // const url = "http://localhost:5000"
-const url = "https://08a06c801554.ngrok.io"
+const url = ""
 let authParams = "ha, gayyyyyy"
 
 export function reqCheckParams(params) {

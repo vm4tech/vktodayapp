@@ -9,8 +9,7 @@ import '@vkontakte/vkui/dist/vkui.css';
 import CustomEpic from './components/CustomEpic';
 
 function App () {
-  
-  
+   
   return (
     <ConfigProvider>
       <AdaptivityProvider>
