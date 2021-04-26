@@ -26,7 +26,7 @@ export default function CreateDesire (props){
         await reqCreateDesire(user.id, name, description, genre).then(res => {
             props.setAddDesire(res);
         })
-        props.setActivePanel("desire_panel")
+        props.setActivePanel("services")
       };
     const createSubDesire = async() => {
         console.log("USER:ID for subdesire ", user.id)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Header,
     Group,
@@ -8,7 +8,7 @@ import {
   } from '@vkontakte/vkui';
 import CustomBanner from './CustomBanner';
 import { Icon24Add, Icon28MessageOutline } from '@vkontakte/icons';
-
+import { reqGetSubDesires } from '../actions';
   let urls = [
     "https://www.mercedes-benz.ru//passengercars/mercedes-benz-cars/models/amg-gt/coupe-c190/design/model-comparison/_jcr_content/comparisonslider/par/comparisonslide_379682962/exteriorImage.MQ6.12.20200831120232.jpeg",
     "https://www.erikastravelventures.com/wp-content/uploads/2018/10/IMG_6858-e1540290382435.jpg",
@@ -20,10 +20,21 @@ import { Icon24Add, Icon28MessageOutline } from '@vkontakte/icons';
 ** 1. Посмотреть, что можно сделать с шевроном (стрелочкой), т.к. при использовании background она не показывается (слой находится выше, чем стрелка).
 * 2. Подумать над затемнением при наведении.
 * 3. Подумать над качеством импортируемого изображения (т.к. при большом размере она долго прогружается) 
+* 4. Решить как загружать подцели. (1. При нажатии на цель/ 2. При загрузке всех желаний сразу же в запросе присылать и поджелания)
 */
 
 export default function Desires (props) {
     
+    // const getSubDesires = async (desire) =>{
+    //   await reqGetSubDesires(desire)
+    //   .then(res => {
+    //     console.log("subdesires",res);
+    //     setSubDesires([...res]);
+    //   })
+    //   .catch(err => console.log("errror", err))
+
+    // }
+
     return(
         <Group
             header={<Header>Ближайшие</Header>}
@@ -40,7 +51,9 @@ export default function Desires (props) {
             :
               props.desires.slice(0).reverse().map((desire) =>
                 <CustomBanner 
+                  // onClick={getSubDesires(desire)}
                   onSetDesire={props.onSetDesire} 
+                  // subdesires={subdesires}
                   setActivePanel={props.setActivePanel} 
                   key={desire.id} 
                   desire={desire}

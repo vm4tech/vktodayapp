@@ -29,7 +29,7 @@ import MainBlock from './MainBlock';
 import bridge from '@vkontakte/vk-bridge';
 import Desires from './Desires'
 import CreateDesire from './CreateDesire'
-import { reqGetDesires, reqCheckParams, reqCreateUser } from '../actions';
+import { reqGetDesires, reqCheckParams, reqCreateUser, reqGetSubDesires } from '../actions';
 
 
 const CustomEpic = withAdaptivity((props) => {
