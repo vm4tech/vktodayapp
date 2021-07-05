@@ -1,26 +1,22 @@
-import React from 'react';
+import React from "react";
 // import ReactDOM from 'react-dom';
-import {  
-  AppRoot,
-  ConfigProvider,
-  AdaptivityProvider
-} from '@vkontakte/vkui';
-import '@vkontakte/vkui/dist/vkui.css';
-import CustomEpic from './components/CustomEpic';
+import { AppRoot, ConfigProvider, AdaptivityProvider } from "@vkontakte/vkui";
+import "@vkontakte/vkui/dist/vkui.css";
+import EpicCustom from "./components/Epic/EpicCustom";
 
-function App () {
-   
+function App() {
   return (
     <ConfigProvider>
       <AdaptivityProvider>
-        <AppRoot style={{overflow:"hidden", maxWidth:"100%", minWidth:"100%"}}>    
-          
+        <AppRoot
+          style={{ overflow: "hidden", maxWidth: "100%", minWidth: "100%" }}
+        >
           {/* <CustomEpic platform={platform} user={user}> */}
-          <CustomEpic 
-            // isLoading={isLoading.current}
-            // user={user.current}
-            // platform={platform} 
-            // popout={popout}
+          <EpicCustom
+          // isLoading={isLoading.current}
+          // user={user.current}
+          // platform={platform}
+          // popout={popout}
           >
             {/* <Root activeView={activeView}>
               <View id="main" activePanel={mainPanel} popout={popout}>
@@ -52,7 +48,7 @@ function App () {
                 </Panel>
               </View> 
             </Root> */}
-          </CustomEpic>
+          </EpicCustom>
         </AppRoot>
       </AdaptivityProvider>
     </ConfigProvider>

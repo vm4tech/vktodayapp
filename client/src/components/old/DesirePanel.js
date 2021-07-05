@@ -28,6 +28,7 @@ import { Checkbox } from '@vkontakte/vkui/dist/components/Checkbox/Checkbox';
 export default function DesirePanel (props) {
     const user = props.user;
     const subdesires = props.desire.subdesires;
+    console.log("🚀 ~ file: DesirePanel.js ~ line 31 ~ DesirePanel ~ subdesires", subdesires)
     // useEffect(async()=>{
     //     await reqGetSubDesires(user.id, props.desire)
     //     .then(res => {
@@ -35,7 +36,7 @@ export default function DesirePanel (props) {
     //         setSubDesires([...res]);
     //     })
     // },[])
-
+    
     const onDeleteDesire = async() => {
         console.log("USER:ID ", user.id)
         await reqDeleteDesire(user.id, props.desire).then(res => {

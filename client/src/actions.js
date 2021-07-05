@@ -2,143 +2,42 @@
 // TODO: Сверстать нормальную начальную страницу для каждого пользователя
 //  КАЖДЫЙ РАЗ ОТПРАВЛЯТЬ СТРОЧКУ С ДАННЫМИ SIGN B И.т.п???!?!?
 // const url = "http://localhost:5000"
-const url = "https://3da2266f31d0.ngrok.io"
-let authParams = "ha, gayyyyyy"
+const url = "https://900e58f49a4b.ngrok.io";
+let authParams = "ha, gayyyyyy";
 
-export function reqCheckParams(params) {
-  const body = {"authParams":params}
-  console.log("body:". body)
+export default function reqCheckParams(params) {
+  const body = { authParams: params };
+  console.log("body:".body);
   authParams = params;
-      return fetch(url + "/checkparams", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body)
-        })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          console.log("RESULT: ", result)
-          return result;
-        },
-        (error) => {
-          console.log("ERR:", error)
-          return error;
-        }
-      )
+  return fetchCustom("/checkparams", body);
 }
 
 export function reqCreateUser(vk_id, name, firstname) {
-    const body = {authParams, vk_id, name, firstname}
-        return fetch(url +"/createuser", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(body)
-          })
-        .then(res => res.json())
-        .then(
-          (result) => {
-            console.log("typeof" ,typeof(result));
-            return result;
-          },
-          (error) => {
-            console.log(error);
-            return error;
-          }
-        )
+  const body = { authParams, vk_id, name, firstname };
+  return fetchCustom("/createuser", body);
 }
 
-export default function reqCreateDesire(vk_id, name, description, genre) {
-  const body = {authParams, vk_id, name, description, genre}
-    return fetch(url + "/createdesire", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body)
-        })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          return result;
-        },
-        (error) => {
-          console.log(error);
-          return error;
-        }
-      )
+export function reqDesireCreate(name, description, genre) {
+  const body = { authParams, name, description, genre };
+  console.log("BODY:", body);
+  return fetchCustom("/desireCreate", body);
 }
 
-export function reqDeleteDesire(vk_id, desire) {
-  const body = {authParams, vk_id, desire}
-    return fetch(url + "/deletedesire", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body)
-        })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          return result;
-        },
-        (error) => {
-          console.log(error);
-          return error;
-        }
-      )
-}
-
-export function reqCreateSubdesire(vk_id, name, desire_id) {
-  const body = {authParams, vk_id, name, desire_id}
-    return fetch(url + "/createsubdesire", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body)
-        })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          return result;
-        },
-        (error) => {
-          console.log(error);
-          return error;
-        }
-      )
-}
-
-export function reqGetDesires(vk_id) {
-  const body = {authParams, vk_id}
-      return fetch(url +"/getdesires", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body)
-        })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          console.log("rsult:", result);
-          return result;
-        },
-        (error) => {
-          console.log(error);
-          return error;
-        }
-      )
-}
-
-export function reqGetSubDesires( desire) {
-  const body = {authParams, desire}
-      return fetch(url +"/getsubdesires", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body)
-        })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          return result;
-        },
-        (error) => {
-          console.log(error);
-          return error;
-        }
-      )
+function fetchCustom(paramUrl, body) {
+  return fetch(url + paramUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        console.log("ANSWER: ", { typeof: typeof result, result });
+        return result;
+      },
+      (error) => {
+        console.log(error);
+        return error;
+      }
+    );
 }

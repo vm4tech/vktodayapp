@@ -1,4 +1,4 @@
-import reqCreateDesire, {reqCreateSubdesire} from "../actions"
+import reqCreateDesire, {reqCreateSubdesire} from "../../actions"
 import { 
     FormItem,
     Input,
