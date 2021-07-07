@@ -36,9 +36,13 @@ import reqCheckParams, {
 } from "../../actions";
 import All from "./All/All";
 import DesireCreate from "../Сreate/DesireCreate";
+import BannerDesire from "./All/BannerDesire";
+import DesirePanel from "./All/DesirePanel";
+import SubdesireCreate from "../Сreate/SubdesireCreate";
 
 const EpicCustom = withAdaptivity(
   (props) => {
+    const [desire, setDesire] = useState(null);
     const [popout, setPopout] = useState(<ScreenSpinner size="large" />);
     const [activeStory, setActiveStory] = useState("main");
     const [activePanel, setActivePanel] = useState("main");
@@ -186,13 +190,23 @@ const EpicCustom = withAdaptivity(
 
             <View id="all" activePanel={activePanel}>
               <Panel id="all">
-                <All setActivePanel={setActivePanel} />
+                <All setDesire={setDesire} setActivePanel={setActivePanel} />
               </Panel>
               <Panel id="desireCreate">
                 <DesireCreate
                   activePanel={activePanel}
                   setActivePanel={setActivePanel}
                 />
+              </Panel>
+              <Panel id="subdesireCreate">
+                <SubdesireCreate
+                  activePanel={activePanel}
+                  setActivePanel={setActivePanel}
+                  desire={desire}
+                />
+              </Panel>
+              <Panel id="desirePanel">
+                <DesirePanel setActivePanel={setActivePanel} desire={desire} />
               </Panel>
             </View>
             <View id="profile" activePanel={activePanel}>

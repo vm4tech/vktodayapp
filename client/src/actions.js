@@ -2,7 +2,7 @@
 // TODO: Сверстать нормальную начальную страницу для каждого пользователя
 //  КАЖДЫЙ РАЗ ОТПРАВЛЯТЬ СТРОЧКУ С ДАННЫМИ SIGN B И.т.п???!?!?
 // const url = "http://localhost:5000"
-const url = "https://900e58f49a4b.ngrok.io";
+const url = "https://1d538867209d.ngrok.io";
 let authParams = "ha, gayyyyyy";
 
 export default function reqCheckParams(params) {
@@ -23,6 +23,25 @@ export function reqDesireCreate(name, description, genre) {
   return fetchCustom("/desireCreate", body);
 }
 
+export function reqGetDesires() {
+  const body = { authParams };
+  return fetchCustom("/getDesires", body);
+}
+
+export function reqSubdesireCreate(desire_id, name, description, genre) {
+  const body = { authParams, desire_id, name, description, genre };
+  return fetchCustom("/subdesiresCreate", body);
+}
+
+export function reqGetSubdesires(desire) {
+  const body = { authParams, desire };
+  return fetchCustom("/getSubdesires", body);
+}
+
+export function reqDeleteDesire(desire) {
+  const body = { authParams, desire };
+  return fetchCustom("/deleteDesire", body);
+}
 function fetchCustom(paramUrl, body) {
   return fetch(url + paramUrl, {
     method: "POST",
