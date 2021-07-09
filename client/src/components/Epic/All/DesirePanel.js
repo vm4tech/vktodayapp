@@ -6,14 +6,16 @@ import {
   Title,
   CellButton,
   FormItem,
-  SimpleCell,
-  IconButton,
-  // Group,
-  // Header
+  List,
+  Cell,
 } from "@vkontakte/vkui";
-import { reqDeleteDesire, reqGetSubdesires } from "../../../actions";
-import { Icon16MoreVertical, Icon24Add } from "@vkontakte/icons";
-import { Checkbox } from "@vkontakte/vkui/dist/components/Checkbox/Checkbox";
+import {
+  reqDeleteDesire,
+  reqDeleteSubdesire,
+  reqGetSubdesires,
+} from "../../../actions";
+import { Icon24Add } from "@vkontakte/icons";
+import CheckBox from "../../CheckBox";
 let urls = [
   "https://www.mercedes-benz.ru//passengercars/mercedes-benz-cars/models/amg-gt/coupe-c190/design/model-comparison/_jcr_content/comparisonslider/par/comparisonslide_379682962/exteriorImage.MQ6.12.20200831120232.jpeg",
   "https://www.erikastravelventures.com/wp-content/uploads/2018/10/IMG_6858-e1540290382435.jpg",
@@ -32,13 +34,13 @@ export default function DesirePanel(props) {
   //     async function requests() {}
   //     requests()
   //   });
-  const [subdesires, setSubDesires] = useState([]);
+  const [subdesires, setSubdesires] = useState([]);
   //   const user = props.user;
   //   const subdesires = props.desire.subdesires;
   useEffect(async () => {
     await reqGetSubdesires(props.desire).then((res) => {
       console.log("subdesires:", res);
-      setSubDesires([...res]);
+      setSubdesires([...res]);
     });
   }, []);
   useEffect(() => {
@@ -51,6 +53,14 @@ export default function DesirePanel(props) {
       props.setActivePanel("all");
     });
   };
+
+  function removeSubdesire(index) {
+    setSubdesires([
+      ...subdesires.slice(0, index),
+      ...subdesires.slice(index + 1),
+    ]);
+    reqDeleteSubdesire(subdesires[index]);
+  }
 
   return (
     <Group>
@@ -102,17 +112,15 @@ export default function DesirePanel(props) {
           {props.desire.name}
         </Title>
         <FormItem>
-          {subdesires.map((sub) => (
-            <SimpleCell
-              after={
-                <IconButton aria-label="Подробнее">
-                  <Icon16MoreVertical />
-                </IconButton>
-              }
-            >
-              <Checkbox>{sub.name}</Checkbox>
-            </SimpleCell>
-          ))}
+          <List>
+            {subdesires.map((item, index) => (
+              <CheckBox
+                removeSubdesire={removeSubdesire}
+                item={item}
+                index={index}
+              />
+            ))}
+          </List>
         </FormItem>
       </Div>
     </Group>
